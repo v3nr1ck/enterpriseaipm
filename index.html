@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI-Native PM Operating Model — James Venrick</title>
+<meta name="description" content="A working operating model for AI-native product management at enterprise scale: a competency ladder, responsible-AI decision gates, and a 90-day adoption playbook. By James Venrick.">
+<meta name="author" content="James Venrick">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Self-contained by design: no CDNs, no web fonts, no scripts,
+   no analytics. Every byte of this page ships from one origin.
+   Built to WCAG 2.2 AA — see the accessibility statement below.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f4f6fa;
+  --ink: #1c2230;
+  --ink-soft: #465062;
+  --line: #d6dbe6;
+  --accent: #2440c9;
+  --accent-ink: #ffffff;
+  --badge-bg: #e8ecfb;
+  --badge-ink: #1d349f;
+  --mark: #b45309;
+  --mark-bg: #fdf3e3;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151c;
+    --bg-alt: #1a1f29;
+    --ink: #e8eaf0;
+    --ink-soft: #aab3c5;
+    --line: #333b4a;
+    --accent: #97a8ff;
+    --accent-ink: #10142b;
+    --badge-bg: #232c4d;
+    --badge-ink: #b8c4ff;
+    --mark: #f0b35c;
+    --mark-bg: #2b2318;
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 1.0625rem;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--accent); color: var(--accent-ink);
+  padding: 0.75rem 1.25rem; font-weight: 700; z-index: 100;
+}
+.skip-link:focus { left: 0; }
+.wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem; }
+.wrap-wide { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
+
+/* Header / hero */
+.masthead { border-bottom: 1px solid var(--line); background: var(--bg-alt); }
+.masthead-inner { padding: 4rem 0 3rem; }
+.kicker {
+  display: inline-block; font-size: 0.8125rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--badge-bg); color: var(--badge-ink);
+  padding: 0.35rem 0.85rem; border-radius: 999px; margin-bottom: 1.25rem;
+}
+h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.12; letter-spacing: -0.015em; max-width: 21ch; }
+.standfirst { font-size: 1.25rem; color: var(--ink-soft); margin-top: 1.25rem; max-width: 38rem; }
+.byline { margin-top: 1.5rem; font-size: 0.9375rem; color: var(--ink-soft); }
+.byline strong { color: var(--ink); }
+
+/* Nav */
+.toc { border-bottom: 1px solid var(--line); }
+.toc ul { display: flex; flex-wrap: wrap; gap: 0.25rem; list-style: none; padding: 0.6rem 0; }
+.toc a {
+  display: inline-block; padding: 0.5rem 0.85rem; min-height: 24px;
+  text-decoration: none; font-size: 0.9375rem; font-weight: 600;
+  color: var(--ink-soft); border-radius: 8px;
+}
+.toc a:hover { color: var(--accent); background: var(--bg-alt); }
+
+/* Sections */
+section { padding: 3.25rem 0 1rem; scroll-margin-top: 2rem; }
+h2 { font-size: 1.75rem; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 0.5rem; }
+.section-lede { color: var(--ink-soft); font-size: 1.125rem; margin-bottom: 1.75rem; max-width: 40rem; }
+h3 { font-size: 1.2rem; margin: 1.75rem 0 0.5rem; }
+p + p { margin-top: 1rem; }
+.prose { max-width: 40rem; }
+.prose strong { font-weight: 700; }
+
+/* Ladder */
+.ladder { list-style: none; display: grid; gap: 1rem; margin-top: 1.5rem; }
+.rung {
+  border: 1px solid var(--line); border-radius: 14px;
+  padding: 1.5rem; background: var(--bg);
+  display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: start;
+}
+.rung-num {
+  font-size: 1.5rem; font-weight: 800; color: var(--accent);
+  border: 2px solid var(--accent); border-radius: 12px;
+  width: 3rem; height: 3rem; display: grid; place-items: center;
+}
+.rung h3 { margin: 0 0 0.35rem; font-size: 1.25rem; }
+.rung .role { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+.rung dl { margin-top: 0.75rem; display: grid; gap: 0.5rem; }
+.rung dt { font-weight: 700; font-size: 0.9375rem; }
+.rung dd { font-size: 0.9375rem; color: var(--ink-soft); }
+.rung-note {
+  border-left: 4px solid var(--mark); background: var(--mark-bg);
+  padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; margin-top: 1.5rem;
+  max-width: 40rem;
+}
+
+/* Gates */
+.gates { list-style: none; counter-reset: gate; display: grid; gap: 0.85rem; margin-top: 1.5rem; max-width: 44rem; }
+.gates > li {
+  counter-increment: gate;
+  border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.25rem 1.1rem 3.5rem;
+  position: relative;
+}
+.gates > li::before {
+  content: counter(gate);
+  position: absolute; left: 1.1rem; top: 1.15rem;
+  font-weight: 800; color: var(--accent); font-size: 1.05rem;
+  border: 2px solid var(--accent); border-radius: 50%;
+  width: 1.6rem; height: 1.6rem; display: grid; place-items: center; font-size: 0.9rem;
+}
+.gates strong { display: block; margin-bottom: 0.2rem; }
+.gates span { color: var(--ink-soft); font-size: 0.9375rem; }
+
+/* Playbook */
+.phases { display: grid; gap: 1rem; margin-top: 1.5rem; }
+@media (min-width: 720px) { .phases { grid-template-columns: 1fr 1fr 1fr; } }
+.phase { border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem; background: var(--bg-alt); }
+.phase h3 { margin: 0; font-size: 1.05rem; }
+.phase .span { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent); }
+.phase ul { list-style: none; margin-top: 0.85rem; display: grid; gap: 0.55rem; }
+.phase li { font-size: 0.9375rem; color: var(--ink-soft); padding-left: 1.1rem; position: relative; }
+.phase li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+
+/* Evidence */
+.receipts { list-style: none; display: grid; gap: 0.85rem; margin-top: 1.5rem; max-width: 44rem; }
+.receipts li { border-left: 4px solid var(--accent); padding: 0.35rem 0 0.35rem 1.15rem; }
+.receipts strong { display: block; }
+.receipts span { color: var(--ink-soft); font-size: 0.9375rem; }
+
+/* Details/summary */
+details { border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.25rem; margin-top: 1.25rem; max-width: 44rem; }
+summary { cursor: pointer; font-weight: 700; }
+details[open] summary { margin-bottom: 0.65rem; }
+
+/* Accessibility statement + footer */
+.a11y { background: var(--bg-alt); border-top: 1px solid var(--line); margin-top: 3rem; padding: 3rem 0; }
+.a11y ul { margin: 1rem 0 0 1.25rem; display: grid; gap: 0.4rem; color: var(--ink-soft); font-size: 0.9375rem; }
+footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3.5rem; }
+footer p { color: var(--ink-soft); font-size: 0.9375rem; }
+.contact-row { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 0.75rem; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="masthead">
+  <div class="wrap-wide masthead-inner">
+    <p class="kicker">A working operating model · v1 · July 2026</p>
+    <h1>AI didn’t change what product managers own. It changed what counts as evidence.</h1>
+    <p class="standfirst">
+      An operating model for AI-native product management at enterprise scale:
+      a five-level competency ladder, seven responsible-AI decision gates, and a
+      90-day playbook for moving an entire PM organization — not one productive individual — up the curve.
+    </p>
+    <p class="byline">
+      By <strong>James Venrick</strong> — enterprise product leader (Fortune 1 retail; previously telecom &amp; aerospace).
+      This page is itself a demonstration: hand-built with my own agent tooling, fully self-contained
+      (zero external requests), and written to WCAG 2.2 AA.
+    </p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections of this page">
+  <div class="wrap-wide">
+    <ul>
+      <li><a href="#thesis">The thesis</a></li>
+      <li><a href="#ladder">The competency ladder</a></li>
+      <li><a href="#gates">Responsible-AI gates</a></li>
+      <li><a href="#playbook">90-day playbook</a></li>
+      <li><a href="#evidence">Receipts</a></li>
+      <li><a href="#accessibility">Accessibility</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main" class="wrap-wide">
+
+  <!-- ───────── THESIS ───────── -->
+  <section id="thesis" aria-labelledby="thesis-h">
+    <h2 id="thesis-h">The thesis</h2>
+    <div class="prose">
+      <p>
+        For twenty years, the unit of product management work has been the <em>document</em>:
+        the PRD, the roadmap deck, the business case. Documents are opinions with formatting.
+        Organizations learned to route them through review cycles precisely because opinions
+        need consensus to become action.
+      </p>
+      <p>
+        AI collapsed the cost of a different unit of work: the <strong>working artifact</strong>.
+        A product manager can now answer a discovery question with a functioning prototype,
+        a data question with a queryable pipeline, and a feasibility debate with a deployed
+        demo — in the time it used to take to schedule the meeting. When evidence gets that
+        cheap, opinion-based artifacts stop being competitive. The PMs who internalize this
+        compress discovery-to-decision cycles from weeks to days. I have watched it happen,
+        measured it, and been the subject of the measurement.
+      </p>
+      <p>
+        Here is the uncomfortable part for large organizations: <strong>this advantage does not
+        scale by procurement.</strong> Buying every PM a license produces AI-assisted PMs — the
+        same documents, faster. Producing AI-<em>native</em> PMs requires an operating model:
+        a shared definition of what good looks like at each level, guardrails that make speed
+        safe, an enablement layer where one PM’s tooling becomes everyone’s tooling, and
+        measurement that separates real cycle-time gains from theater.
+      </p>
+      <p>
+        That operating model is what this page contains. It is not a manifesto; it is the
+        system I run, offered in a form another organization could adopt on Monday.
+      </p>
+    </div>
+  </section>
+
+  <!-- ───────── LADDER ───────── -->
+  <section id="ladder" aria-labelledby="ladder-h">
+    <h2 id="ladder-h">The AI-native PM competency ladder</h2>
+    <p class="section-lede">
+      Five levels, each defined by observable behaviors and artifacts — not tool familiarity.
+      The question at every level is the same: <em>what does this person’s work make possible
+      for other people?</em>
+    </p>
+
+    <ol class="ladder">
+      <li class="rung">
+        <span class="rung-num" aria-hidden="true">1</span>
+        <div>
+          <h3>Assisted</h3>
+          <p class="role">Uses AI as a faster keyboard</p>
+          <dl>
+            <dt>Behaviors</dt>
+            <dd>Drafting, summarizing, rewriting. Chat as a convenience layer over existing workflow.</dd>
+            <dt>Artifacts</dt>
+            <dd>Better-written documents, produced somewhat faster.</dd>
+            <dt>Organizational signal</dt>
+            <dd>Individual convenience. Nothing changes for anyone else.</dd>
+          </dl>
+        </div>
+      </li>
+
+      <li class="rung">
+        <span class="rung-num" aria-hidden="true">2</span>
+        <div>
+          <h3>Fluent</h3>
+          <p class="role">Has patterns, not just prompts</p>
+          <dl>
+            <dt>Behaviors</dt>
+            <dd>Reusable prompt patterns; multi-document synthesis; deliberate model selection; treats context as something you engineer, not something you hope for.</dd>
+            <dt>Artifacts</dt>
+            <dd>Research briefs from large corpora, competitive teardowns, structured analyses that would previously have been a week of reading.</dd>
+            <dt>Organizational signal</dt>
+            <dd>Individual cycle time visibly drops. Peers start asking “how did you do that so fast?”</dd>
+          </dl>
+        </div>
+      </li>
+
+      <li class="rung">
+        <span class="rung-num" aria-hidden="true">3</span>
+        <div>
+          <h3>Builder</h3>
+          <p class="role">Answers questions with working software</p>
+          <dl>
+            <dt>Behaviors</dt>
+            <dd>Builds retrieval pipelines over real document sets, functional prototypes, scrapers, dashboards, and internal utilities. Ships things engineering can evaluate rather than interpret.</dd>
+            <dt>Artifacts</dt>
+            <dd>Deployed prototypes; data pipelines; tools that remove personal friction. Discovery output is runnable.</dd>
+            <dt>Organizational signal</dt>
+            <dd>Engineering starts pulling PM prototypes <em>into</em> evaluation instead of translating PM documents. The discovery-to-decision cycle compresses by an order of magnitude.</dd>
+          </dl>
+        </div>
+      </li>
+
+      <li class="rung">
+        <span class="rung-num" aria-hidden="true">4</span>
+        <div>
+          <h3>Orchestrator</h3>
+          <p class="role">Runs systems of agents; publishes tools others adopt</p>
+          <dl>
+            <dt>Behaviors</dt>
+            <dd>Designs multi-agent workflows with defined roles, persistent memory, and quality review built in. Packages personal tooling so colleagues can install it, not admire it.</dd>
+            <dt>Artifacts</dt>
+            <dd>Published agents and skills in a shared internal marketplace; pipelines that run without their author present.</dd>
+            <dt>Organizational signal</dt>
+            <dd><strong>Other people’s work gets faster.</strong> This is the first level where the gains leave the individual.</dd>
+          </dl>
+        </div>
+      </li>
+
+      <li class="rung">
+        <span class="rung-num" aria-hidden="true">5</span>
+        <div>
+          <h3>Multiplier</h3>
+          <p class="role">Changes what the discipline expects of itself</p>
+          <dl>
+            <dt>Behaviors</dt>
+            <dd>Designs the operating model: competency definitions wired into career frameworks, responsible-AI governance wired into intake, enablement infrastructure, and measurement that survives scrutiny.</dd>
+            <dt>Artifacts</dt>
+            <dd>Standards, maturity assessments, governance rails, training curricula — and measured org-level cycle-time and quality gains.</dd>
+            <dt>Organizational signal</dt>
+            <dd>The gains persist if the individual leaves. The discipline itself has changed.</dd>
+          </dl>
+        </div>
+      </li>
+    </ol>
+
+    <div class="rung-note">
+      <strong>The distribution problem:</strong> most enterprises today have many L1s, some L2s,
+      a handful of L3s, and almost no L4/L5 — because levels 4 and 5 are not individual skills.
+      They require someone with the standing to change how the organization defines the PM job.
+      That is an organizational design decision, and it is the highest-leverage one available
+      to a product org right now.
+    </div>
+  </section>
+
+  <!-- ───────── GATES ───────── -->
+  <section id="gates" aria-labelledby="gates-h">
+    <h2 id="gates-h">Seven responsible-AI gates</h2>
+    <p class="section-lede">
+      Speed without governance is how AI programs die in legal review — or worse, in production.
+      These are the seven questions I require a product decision involving AI to answer.
+      They are written as gates, not values statements, because values statements don’t block a launch.
+    </p>
+
+    <ol class="gates">
+      <li><strong>Grounding.</strong> <span>Can every AI-generated answer cite its source? If the system cannot show where a claim came from, it is not ready for users whose decisions carry cost.</span></li>
+      <li><strong>Data boundary.</strong> <span>Exactly which data reaches which model, under what agreement, with what retention? “It’s just a prompt” is how confidential data leaves a company.</span></li>
+      <li><strong>Human accountability.</strong> <span>A named human owns every AI output that reaches a customer or a decision. If no one will sign their name to it, it does not ship.</span></li>
+      <li><strong>Failure design.</strong> <span>What does a wrong answer cost, who catches it, and what is the fallback? Design the failure path with the same rigor as the happy path — before launch, not after the incident.</span></li>
+      <li><strong>Accessibility and inclusion.</strong> <span>AI-powered experiences meet WCAG 2.2 AA and work with assistive technology from the first release. Accessibility retrofits cost more than accessibility defaults, and excluded users don’t file bug reports — they leave.</span></li>
+      <li><strong>Measurement.</strong> <span>A pre-registered baseline and a metric that would show failure, not only success. If the only evidence is enthusiasm, the gate stays closed.</span></li>
+      <li><strong>Disclosure.</strong> <span>People know when they are reading machine-generated content and when a decision about them involved a model. Trust is a product surface.</span></li>
+    </ol>
+
+    <details>
+      <summary>Why gates instead of principles?</summary>
+      <p>
+        Principles describe intent; gates change behavior. A principle survives being ignored —
+        a gate does not, because it sits in the intake template, the PRD skeleton, and the launch
+        checklist where work actually flows. The test of an AI governance model is not whether it
+        reads well but whether a team can fail it. This one can be failed, which is why passing it means something.
+      </p>
+    </details>
+  </section>
+
+  <!-- ───────── PLAYBOOK ───────── -->
+  <section id="playbook" aria-labelledby="playbook-h">
+    <h2 id="playbook-h">The 90-day adoption playbook</h2>
+    <p class="section-lede">
+      How to move a PM organization up the ladder without a reorg, a platform purchase,
+      or a mandate nobody follows. The sequence matters: measure, then enable, then institutionalize.
+    </p>
+
+    <div class="phases">
+      <div class="phase">
+        <p class="span">Days 0–30</p>
+        <h3>Baseline &amp; seed</h3>
+        <ul>
+          <li>Instrument current artifact cycle times: discovery-to-PRD, PRD-to-decision, question-to-answer. You cannot claim gains you never baselined.</li>
+          <li>Map the org against the ladder honestly. Expect a pyramid.</li>
+          <li>Identify the existing L3+ practitioners — every org has a few, usually unrecognized — and make them the seed cohort.</li>
+          <li>Stand up a sanctioned sandbox with clear data-boundary rules, so experimentation stops being shadow IT.</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <p class="span">Days 31–60</p>
+        <h3>Build the enablement layer</h3>
+        <ul>
+          <li>Launch an internal marketplace where PM-built agents, skills, and templates are installable by anyone — the mechanism that turns L4 individuals into org-wide gains.</li>
+          <li>Embed the seven gates directly into intake and PRD templates.</li>
+          <li>Seed-cohort office hours: working sessions on real backlog items, not training-slide demos.</li>
+          <li>Publish the first before/after cycle-time numbers internally. Evidence recruits better than mandates.</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <p class="span">Days 61–90</p>
+        <h3>Institutionalize</h3>
+        <ul>
+          <li>Wire the ladder into the PM career framework — promotion criteria are the only durable adoption mechanism an enterprise has.</li>
+          <li>Stand up a lightweight review board for gate exceptions, so governance has an owner.</li>
+          <li>Report org-level metrics to leadership: cycle-time deltas, marketplace adoption, gate pass rates.</li>
+          <li>Rotate seed-cohort members into every product family as named practice leads.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── EVIDENCE ───────── -->
+  <section id="evidence" aria-labelledby="evidence-h">
+    <h2 id="evidence-h">Receipts</h2>
+    <p class="section-lede">
+      An operating model is only as credible as its author’s practice. Mine, briefly —
+      details generalized where they concern internal systems.
+    </p>
+
+    <ul class="receipts">
+      <li>
+        <strong>Production AI, shipped.</strong>
+        <span>Authored the first-version retrieval-augmented (RAG) engine behind an AI assistant now used daily by field technicians across 4,700+ retail locations — thousands of technical manuals ingested, chunked, embedded, and served with cited answers. Engineering adopted the prototype into the official build: the strongest technical-soundness vote a PM’s work can receive.</span>
+      </li>
+      <li>
+        <strong>Tools other PMs install.</strong>
+        <span>Three agents/skills authored and published to my company’s internal AI marketplace, installable by any employee — a notes-to-prototype pipeline and an automated design-standards auditor among them. Level 4 is not a claim; it is a download count.</span>
+      </li>
+      <li>
+        <strong>Enterprise-scale product results.</strong>
+        <span>Digital-twin and predictive-analytics platform tied to $1.5B+ in measured GMV impact; IoT monitoring platform contributing to $1B+ in annual waste reduction; work-order platform serving 1.2M associates. Earlier: cloud-native 5G core delivery and three communications spacecraft, concept to on-orbit commissioning.</span>
+      </li>
+      <li>
+        <strong>Measured, independently audited velocity.</strong>
+        <span>Discovery-to-PRD cycle compressed from roughly two weeks to roughly 48 hours — a figure produced not by me but by independent AI audits of six months of my own session logs. I hold my own claims to gate #6.</span>
+      </li>
+      <li>
+        <strong>Personal practice, personally funded.</strong>
+        <span>300+ fine-tuned models (LoRA/QLoRA across image, video, and mixture-of-experts LLMs); 100B+ parameter open-weight models hosted on my own hardware; custom multi-agent orchestration with cost-aware routing; 50 published browser extensions and 50 public model-hub repositories. The judgment I bring to enterprise AI decisions is backed by hands-on practice I pay for myself.</span>
+      </li>
+    </ul>
+
+    <details>
+      <summary>Why the details are generalized</summary>
+      <p>
+        Some of this work concerns internal systems and figures that belong to my employer,
+        not to me. Gate #2 — the data boundary — applies to career artifacts too. What I publish
+        here is what I would be comfortable defending in front of the people who own the data,
+        which is the same standard I hold product teams to.
+      </p>
+    </details>
+  </section>
+
+</main>
+
+<!-- ───────── ACCESSIBILITY ───────── -->
+<section id="accessibility" class="a11y" aria-labelledby="a11y-h">
+  <div class="wrap-wide">
+    <h2 id="a11y-h">Accessibility statement</h2>
+    <div class="prose">
+      <p>
+        This site is built to <strong>WCAG 2.2 Level AA</strong>. That is a deliberate professional
+        statement, not a compliance checkbox: I believe accessibility competence belongs in the
+        product management skill set, and gate #5 above applies to my own work first.
+      </p>
+    </div>
+    <ul>
+      <li>Semantic HTML landmarks and heading hierarchy throughout; a skip-to-content link is the first focusable element.</li>
+      <li>All text meets or exceeds a 4.5:1 contrast ratio in both light and dark themes (the page follows your system preference).</li>
+      <li>Fully keyboard-operable; visible focus indicators with 3px outlines and offset, never obscured by sticky elements.</li>
+      <li>Honors <code>prefers-reduced-motion</code>; no animation, autoplay, or parasitic movement.</li>
+      <li>No JavaScript required — the page is fully functional with scripts disabled. Disclosure widgets use native, accessible elements.</li>
+      <li>Text scales to 200% without loss of content or function; layout is responsive to 320px viewports.</li>
+      <li>No external resources: no CDN scripts, no third-party fonts, no trackers, no cookies.</li>
+    </ul>
+    <div class="prose" style="margin-top:1rem;">
+      <p>If you encounter an accessibility barrier on this page, email me and I will fix it — that is also how the gates work.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap-wide">
+    <p><strong style="color:var(--ink);">James Venrick</strong> — enterprise product leader. Physical AI, digital twins, IoT platforms, telecom infrastructure, and the operating models that make product organizations faster.</p>
+    <div class="contact-row">
+      <a href="mailto:venrick@gmail.com">venrick@gmail.com</a>
+      <a href="https://www.linkedin.com/in/jamesvenrick" rel="me">linkedin.com/in/jamesvenrick</a>
+    </div>
+    <p style="margin-top:1.5rem;">Built by hand with my own agent tooling. One HTML file, zero dependencies, zero scripts. © 2026 James Venrick.</p>
+  </div>
+</footer>
+
+</body>
+</html>

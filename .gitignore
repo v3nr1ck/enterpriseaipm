@@ -1,0 +1,5 @@
+# Private source material — never committed
+_reference/
+*.docx
+*.pdf
+notes/
