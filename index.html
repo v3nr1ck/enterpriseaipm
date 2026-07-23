@@ -3,42 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The AI-Native PM Operating Model — James Venrick</title>
-<meta name="description" content="A working operating model for AI-native product management at enterprise scale: a competency ladder, responsible-AI decision gates, and a 90-day adoption playbook. By James Venrick.">
+<title>The AI-Native PM Operating Model · James Venrick</title>
+<meta name="description" content="An operating model for AI-native product management: a five-level competency ladder, seven decision gates, and a 90-day adoption plan. By James Venrick.">
 <meta name="author" content="James Venrick">
 <style>
-/* ─────────────────────────────────────────────────────────────
-   Self-contained by design: no CDNs, no web fonts, no scripts,
-   no analytics. Every byte of this page ships from one origin.
-   Built to WCAG 2.2 AA — see the accessibility statement below.
-   ───────────────────────────────────────────────────────────── */
+/* Self-contained by design: no CDNs, no web fonts, no scripts, no trackers.
+   Built to WCAG 2.2 AA. */
 :root {
   --bg: #ffffff;
-  --bg-alt: #f4f6fa;
-  --ink: #1c2230;
-  --ink-soft: #465062;
-  --line: #d6dbe6;
-  --accent: #2440c9;
-  --accent-ink: #ffffff;
-  --badge-bg: #e8ecfb;
-  --badge-ink: #1d349f;
-  --mark: #b45309;
-  --mark-bg: #fdf3e3;
+  --bg-alt: #f5f5f7;
+  --ink: #1d1d1f;
+  --ink-soft: #515158;
+  --accent: #0066cc;
+  --band-bg: #1d1d1f;
+  --band-card: #2c2c2e;
+  --band-ink: #f5f5f7;
+  --band-soft: #b5b5ba;
+  --card-radius: 20px;
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #12151c;
-    --bg-alt: #1a1f29;
-    --ink: #e8eaf0;
-    --ink-soft: #aab3c5;
-    --line: #333b4a;
-    --accent: #97a8ff;
-    --accent-ink: #10142b;
-    --badge-bg: #232c4d;
-    --badge-ink: #b8c4ff;
-    --mark: #f0b35c;
-    --mark-bg: #2b2318;
+    --bg: #000000;
+    --bg-alt: #161617;
+    --ink: #f5f5f7;
+    --ink-soft: #a6a6ad;
+    --accent: #3f9fff;
+    --band-bg: #161617;
+    --band-card: #2c2c2e;
   }
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,459 +43,428 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background: var(--bg);
   color: var(--ink);
-  line-height: 1.65;
+  line-height: 1.55;
   font-size: 1.0625rem;
+  -webkit-font-smoothing: antialiased;
 }
-a { color: var(--accent); text-underline-offset: 3px; }
-a:focus-visible, button:focus-visible, summary:focus-visible {
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+a:focus-visible, summary:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 .skip-link {
   position: absolute; left: -9999px; top: 0;
-  background: var(--accent); color: var(--accent-ink);
+  background: var(--accent); color: #fff;
   padding: 0.75rem 1.25rem; font-weight: 700; z-index: 100;
 }
 .skip-link:focus { left: 0; }
-.wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem; }
-.wrap-wide { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
 
-/* Header / hero */
-.masthead { border-bottom: 1px solid var(--line); background: var(--bg-alt); }
-.masthead-inner { padding: 4rem 0 3rem; }
-.kicker {
-  display: inline-block; font-size: 0.8125rem; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  background: var(--badge-bg); color: var(--badge-ink);
-  padding: 0.35rem 0.85rem; border-radius: 999px; margin-bottom: 1.25rem;
+.shell { max-width: 1440px; margin: 0 auto; padding-left: clamp(1.25rem, 5vw, 4rem); padding-right: clamp(1.25rem, 5vw, 4rem); }
+
+/* ── Nav ── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.12; letter-spacing: -0.015em; max-width: 21ch; }
-.standfirst { font-size: 1.25rem; color: var(--ink-soft); margin-top: 1.25rem; max-width: 38rem; }
-.byline { margin-top: 1.5rem; font-size: 0.9375rem; color: var(--ink-soft); }
-.byline strong { color: var(--ink); }
-
-/* Nav */
-.toc { border-bottom: 1px solid var(--line); }
-.toc ul { display: flex; flex-wrap: wrap; gap: 0.25rem; list-style: none; padding: 0.6rem 0; }
-.toc a {
-  display: inline-block; padding: 0.5rem 0.85rem; min-height: 24px;
-  text-decoration: none; font-size: 0.9375rem; font-weight: 600;
+@media (prefers-color-scheme: dark) {
+  .nav { background: rgba(22,22,23,0.8); border-bottom-color: rgba(255,255,255,0.12); }
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3rem; }
+.nav-name { font-weight: 700; font-size: 0.9375rem; color: var(--ink); letter-spacing: -0.01em; }
+.nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem; list-style: none; }
+.nav ul a {
+  display: inline-block; padding: 0.65rem 0.8rem; font-size: 0.875rem; font-weight: 500;
   color: var(--ink-soft); border-radius: 8px;
 }
-.toc a:hover { color: var(--accent); background: var(--bg-alt); }
+.nav ul a:hover { color: var(--ink); text-decoration: none; }
 
-/* Sections */
-section { padding: 3.25rem 0 1rem; scroll-margin-top: 2rem; }
-h2 { font-size: 1.75rem; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 0.5rem; }
-.section-lede { color: var(--ink-soft); font-size: 1.125rem; margin-bottom: 1.75rem; max-width: 40rem; }
-h3 { font-size: 1.2rem; margin: 1.75rem 0 0.5rem; }
-p + p { margin-top: 1rem; }
-.prose { max-width: 40rem; }
-.prose strong { font-weight: 700; }
-
-/* Ladder */
-.ladder { list-style: none; display: grid; gap: 1rem; margin-top: 1.5rem; }
-.rung {
-  border: 1px solid var(--line); border-radius: 14px;
-  padding: 1.5rem; background: var(--bg);
-  display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: start;
+/* ── Hero ── */
+.hero { text-align: center; padding: clamp(4.5rem, 10vw, 8rem) 0 clamp(3.5rem, 7vw, 6rem); }
+h1 {
+  font-size: clamp(2.5rem, 6.5vw, 5rem);
+  line-height: 1.05; letter-spacing: -0.025em; font-weight: 700;
+  max-width: 20ch; margin: 0 auto;
 }
+.hero-sub {
+  font-size: clamp(1.125rem, 2vw, 1.4375rem);
+  color: var(--ink-soft); max-width: 44rem; margin: 1.75rem auto 0;
+  font-weight: 400;
+}
+.hero-byline { margin-top: 2rem; font-size: 0.9375rem; color: var(--ink-soft); }
+.hero-byline strong { color: var(--ink); font-weight: 600; }
+
+/* ── Sections ── */
+section { padding: clamp(3.5rem, 7vw, 6.5rem) 0; scroll-margin-top: 4rem; }
+.alt { background: var(--bg-alt); }
+h2 {
+  font-size: clamp(1.875rem, 4vw, 3rem);
+  letter-spacing: -0.02em; line-height: 1.1; font-weight: 700;
+  text-align: center;
+}
+.lede {
+  text-align: center; color: var(--ink-soft);
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  max-width: 44rem; margin: 1rem auto 0;
+}
+.pull {
+  text-align: center; font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600; letter-spacing: -0.02em; line-height: 1.2;
+  max-width: 30ch; margin: 0 auto;
+}
+
+/* ── Card grids ── */
+.grid { display: grid; gap: 1.25rem; margin-top: clamp(2rem, 4vw, 3.5rem); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+.grid-5 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+.card {
+  background: var(--bg-alt); border-radius: var(--card-radius);
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+.alt .card, section.alt .card { background: var(--bg); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+@media (prefers-color-scheme: dark) {
+  .alt .card, section.alt .card { background: #232326; box-shadow: none; }
+}
+.card h3 { font-size: 1.1875rem; font-weight: 700; letter-spacing: -0.01em; }
+.card .tag {
+  display: block; font-size: 0.8125rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--accent); margin-bottom: 0.5rem;
+}
+.card p { color: var(--ink-soft); font-size: 0.9375rem; margin-top: 0.5rem; }
+.card .lead-line { color: var(--ink); font-weight: 600; font-size: 1rem; margin-top: 0.65rem; }
+
+/* Ladder cards */
 .rung-num {
-  font-size: 1.5rem; font-weight: 800; color: var(--accent);
-  border: 2px solid var(--accent); border-radius: 12px;
-  width: 3rem; height: 3rem; display: grid; place-items: center;
+  font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em;
+  color: var(--accent); line-height: 1; margin-bottom: 0.75rem;
 }
-.rung h3 { margin: 0 0 0.35rem; font-size: 1.25rem; }
-.rung .role { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
-.rung dl { margin-top: 0.75rem; display: grid; gap: 0.5rem; }
-.rung dt { font-weight: 700; font-size: 0.9375rem; }
-.rung dd { font-size: 0.9375rem; color: var(--ink-soft); }
-.rung-note {
-  border-left: 4px solid var(--mark); background: var(--mark-bg);
-  padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; margin-top: 1.5rem;
-  max-width: 40rem;
-}
+.rung-role { font-size: 1rem; font-weight: 600; color: var(--ink); margin-top: 0.15rem; }
 
-/* Gates */
-.gates { list-style: none; counter-reset: gate; display: grid; gap: 0.85rem; margin-top: 1.5rem; max-width: 44rem; }
-.gates > li {
-  counter-increment: gate;
-  border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.25rem 1.1rem 3.5rem;
-  position: relative;
+/* Dark band (gates) */
+.band { background: var(--band-bg); color: var(--band-ink); }
+.band h2 { color: var(--band-ink); }
+.band .lede { color: var(--band-soft); }
+.band .card { background: var(--band-card); box-shadow: none; }
+.band .card h3 { color: var(--band-ink); }
+.band .card p { color: var(--band-soft); }
+.band .gate-num {
+  font-size: 0.875rem; font-weight: 700; color: var(--band-bg);
+  background: var(--band-ink); border-radius: 50%;
+  width: 1.75rem; height: 1.75rem; display: inline-grid; place-items: center;
+  margin-bottom: 0.85rem;
 }
-.gates > li::before {
-  content: counter(gate);
-  position: absolute; left: 1.1rem; top: 1.15rem;
-  font-weight: 800; color: var(--accent); font-size: 1.05rem;
-  border: 2px solid var(--accent); border-radius: 50%;
-  width: 1.6rem; height: 1.6rem; display: grid; place-items: center; font-size: 0.9rem;
-}
-.gates strong { display: block; margin-bottom: 0.2rem; }
-.gates span { color: var(--ink-soft); font-size: 0.9375rem; }
+.band-foot { text-align: center; color: var(--band-soft); margin-top: 2.5rem; font-size: 1rem; }
+.band-foot strong { color: var(--band-ink); }
 
 /* Playbook */
-.phases { display: grid; gap: 1rem; margin-top: 1.5rem; }
-@media (min-width: 720px) { .phases { grid-template-columns: 1fr 1fr 1fr; } }
-.phase { border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem; background: var(--bg-alt); }
-.phase h3 { margin: 0; font-size: 1.05rem; }
-.phase .span { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent); }
-.phase ul { list-style: none; margin-top: 0.85rem; display: grid; gap: 0.55rem; }
-.phase li { font-size: 0.9375rem; color: var(--ink-soft); padding-left: 1.1rem; position: relative; }
-.phase li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+.phase-span {
+  font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; color: var(--accent); line-height: 1;
+}
+.phase-name { font-size: 1.125rem; font-weight: 700; margin-top: 0.5rem; }
+.phase ul { list-style: none; margin-top: 1rem; display: grid; gap: 0.75rem; }
+.phase li { font-size: 0.9375rem; color: var(--ink-soft); padding-left: 1.2rem; position: relative; }
+.phase li::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 
-/* Evidence */
-.receipts { list-style: none; display: grid; gap: 0.85rem; margin-top: 1.5rem; max-width: 44rem; }
-.receipts li { border-left: 4px solid var(--accent); padding: 0.35rem 0 0.35rem 1.15rem; }
-.receipts strong { display: block; }
-.receipts span { color: var(--ink-soft); font-size: 0.9375rem; }
+/* Note line */
+.note {
+  text-align: center; max-width: 46rem; margin: clamp(2rem, 4vw, 3rem) auto 0;
+  color: var(--ink-soft); font-size: 1.0625rem;
+}
+.note strong { color: var(--ink); }
 
-/* Details/summary */
-details { border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.25rem; margin-top: 1.25rem; max-width: 44rem; }
-summary { cursor: pointer; font-weight: 700; }
-details[open] summary { margin-bottom: 0.65rem; }
+/* Accessibility section */
+.a11y-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 0.75rem 2.5rem; margin-top: 2rem; max-width: 56rem; margin-left: auto; margin-right: auto; }
+.a11y-cols li { list-style: none; color: var(--ink-soft); font-size: 0.9375rem; padding-left: 1.4rem; position: relative; }
+.a11y-cols li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 
-/* Accessibility statement + footer */
-.a11y { background: var(--bg-alt); border-top: 1px solid var(--line); margin-top: 3rem; padding: 3rem 0; }
-.a11y ul { margin: 1rem 0 0 1.25rem; display: grid; gap: 0.4rem; color: var(--ink-soft); font-size: 0.9375rem; }
-footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3.5rem; }
-footer p { color: var(--ink-soft); font-size: 0.9375rem; }
-.contact-row { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 0.75rem; }
+/* Footer */
+footer { border-top: 1px solid var(--bg-alt); padding: 3rem 0 4rem; }
+@media (prefers-color-scheme: dark) { footer { border-top-color: #2c2c2e; } }
+footer .shell { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; align-items: baseline; }
+footer p { color: var(--ink-soft); font-size: 0.9375rem; max-width: 34rem; }
+footer .links { display: flex; gap: 1.5rem; font-size: 0.9375rem; }
 </style>
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<header class="masthead">
-  <div class="wrap-wide masthead-inner">
-    <p class="kicker">A working operating model · v1 · July 2026</p>
-    <h1>AI didn’t change what product managers own. It changed what counts as evidence.</h1>
-    <p class="standfirst">
-      A five-level competency ladder, seven decision gates, and a 90-day plan for moving a whole
-      PM organization up the curve — written down in enough detail that you could steal it.
-      That's the point.
-    </p>
-    <p class="byline">
-      By <strong>James Venrick</strong> — product leader (Fortune 1 retail; before that telecom and spacecraft).
-      One HTML file, no scripts, no trackers, WCAG 2.2 AA. Built with my own agent tooling,
-      which is sort of the whole argument.
-    </p>
-  </div>
-</header>
-
-<nav class="toc" aria-label="Sections of this page">
-  <div class="wrap-wide">
+<nav class="nav" aria-label="Site">
+  <div class="shell nav-inner">
+    <span class="nav-name">James Venrick</span>
     <ul>
-      <li><a href="#thesis">The thesis</a></li>
-      <li><a href="#ladder">The competency ladder</a></li>
-      <li><a href="#gates">Responsible-AI gates</a></li>
-      <li><a href="#playbook">90-day playbook</a></li>
-      <li><a href="#evidence">Receipts</a></li>
-      <li><a href="#accessibility">Accessibility</a></li>
+      <li><a href="#thesis">Thesis</a></li>
+      <li><a href="#ladder">The Ladder</a></li>
+      <li><a href="#gates">The Gates</a></li>
+      <li><a href="#playbook">90 Days</a></li>
+      <li><a href="#receipts">Receipts</a></li>
     </ul>
   </div>
 </nav>
 
-<main id="main" class="wrap-wide">
+<header class="hero shell">
+  <h1>AI didn’t change what product managers own. It changed what counts as evidence.</h1>
+  <p class="hero-sub">
+    An operating model for AI-native product management: a five-level ladder, seven gates,
+    and a 90-day plan. Written down in enough detail that you could steal it. That’s the point.
+  </p>
+  <p class="hero-byline"><strong>James Venrick</strong> · Product leader · One HTML file, no scripts, no trackers, WCAG 2.2 AA</p>
+</header>
+
+<main id="main">
 
   <!-- ───────── THESIS ───────── -->
-  <section id="thesis" aria-labelledby="thesis-h">
-    <h2 id="thesis-h">The thesis</h2>
-    <div class="prose">
-      <p>
-        A PRD is an opinion with formatting. So is a roadmap deck. For twenty years that was fine,
-        because opinions were the best artifact available — building the real thing was expensive,
-        so organizations argued about descriptions of the thing instead. Review cycles exist because
-        a document can’t be tested. It can only be believed, and belief takes meetings.
-      </p>
-      <p>
-        AI changed exactly one variable: the cost of a working artifact. A product manager can now
-        answer a feasibility debate with a deployed prototype, a data question with a pipeline you
-        can query, a discovery question with software the engineers can poke at — in less time than
-        it takes to get the debate onto someone’s calendar. I’ve measured this on my own work.
-        Discovery-to-PRD went from roughly two weeks to roughly 48 hours, and I wasn’t the one
-        doing the measuring.
-      </p>
-      <p>
-        Here’s the underlying system. The document was never the product; it was a proxy for a thing
-        too expensive to build speculatively. Organizations optimize proxies — they can’t help it,
-        proxies are what the incentives can see. But when the real thing gets cheaper than the proxy
-        for the thing, the proxy starts dying. Slowly, because the incentives keep pointing at it
-        long after everyone involved knows better. The direction isn’t in question, though.
-      </p>
-      <p>
-        Which sets up the failure mode I keep watching enterprises walk into: treating this as a
-        procurement problem. Buy every PM a license, run a training, declare victory. What you get
-        is AI-<em>assisted</em> PMs — the same documents, produced faster. Faster proxies. The
-        organization needed fewer proxies, and it bought a proxy accelerator.
-      </p>
-      <p>
-        Getting AI-<em>native</em> PMs means changing the system the PMs operate in: a shared
-        definition of what good looks like at each level, guardrails that make speed safe to use,
-        a place where one PM’s tooling becomes everyone’s tooling, and measurement honest enough
-        to catch theater. An operating model. The rest of this page is the one I run.
-      </p>
-      <p>
-        (Some documents deserve to live, to be clear. Strategy memos and decision records are
-        thinking, and thinking doesn’t have a prototype. The documents that die are the ones that
-        were standing in for working software.)
-      </p>
+  <section id="thesis" class="alt">
+    <div class="shell">
+      <p class="pull">A PRD is an opinion with formatting.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Documents are proxies</h3>
+          <p>For twenty years that was fine. Building the real thing was expensive, so organizations
+          argued about descriptions of the thing instead. Review cycles exist because a document
+          can’t be tested. It can only be believed, and belief takes meetings.</p>
+        </div>
+        <div class="card">
+          <h3>One variable changed</h3>
+          <p>AI collapsed the cost of a working artifact. A PM can now answer a feasibility debate
+          with a deployed prototype in less time than it takes to get the debate onto a calendar.
+          When the real thing gets cheaper than the proxy for the thing, the proxy starts dying.</p>
+        </div>
+        <div class="card">
+          <h3>The procurement trap</h3>
+          <p>Buy every PM a license, run a training, declare victory. What you get is the same
+          documents, produced faster. The organization needed fewer proxies, and it bought
+          a proxy accelerator.</p>
+        </div>
+        <div class="card">
+          <h3>What actually works</h3>
+          <p>Change the system the PMs operate in: a shared bar for what good looks like, guardrails
+          that make speed safe, a commons where one PM’s tooling becomes everyone’s, and honest
+          measurement. That’s the rest of this page.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ───────── LADDER ───────── -->
-  <section id="ladder" aria-labelledby="ladder-h">
-    <h2 id="ladder-h">The AI-native PM competency ladder</h2>
-    <p class="section-lede">
-      Five levels, defined by what you can observe — behaviors and artifacts, not tool
-      familiarity, which mostly measures enthusiasm. The test at every level is the same:
-      what does this person’s work change for other people?
-    </p>
+  <section id="ladder">
+    <div class="shell">
+      <h2>The ladder</h2>
+      <p class="lede">Five levels, defined by what you can observe. The test at every level:
+      what does this person’s work change for other people?</p>
 
-    <ol class="ladder">
-      <li class="rung">
-        <span class="rung-num" aria-hidden="true">1</span>
-        <div>
+      <div class="grid grid-5">
+        <div class="card">
+          <p class="rung-num" aria-hidden="true">1</p>
           <h3>Assisted</h3>
-          <p class="role">Uses AI as a faster keyboard</p>
-          <dl>
-            <dt>Behaviors</dt>
-            <dd>Drafting, summarizing, rewriting. Chat as a convenience layer on top of an unchanged workflow.</dd>
-            <dt>Artifacts</dt>
-            <dd>The same documents, written faster and slightly better.</dd>
-            <dt>Organizational signal</dt>
-            <dd>None. This is where most organizations are today, and where most training programs stop.</dd>
-          </dl>
+          <p class="rung-role">A faster keyboard.</p>
+          <p>Drafting and summarizing on an unchanged workflow. Where most training programs stop.</p>
         </div>
-      </li>
-
-      <li class="rung">
-        <span class="rung-num" aria-hidden="true">2</span>
-        <div>
+        <div class="card">
+          <p class="rung-num" aria-hidden="true">2</p>
           <h3>Fluent</h3>
-          <p class="role">Has patterns, not just prompts</p>
-          <dl>
-            <dt>Behaviors</dt>
-            <dd>Reusable prompt patterns, multi-document synthesis, deliberate model selection. Treats context as something you engineer rather than something you hope for.</dd>
-            <dt>Artifacts</dt>
-            <dd>Research briefs distilled from corpora nobody had time to read; competitive teardowns; analysis that used to be a week of open tabs.</dd>
-            <dt>Organizational signal</dt>
-            <dd>Cycle time visibly drops — for one person. Peers start asking how.</dd>
-          </dl>
+          <p class="rung-role">Patterns, not prompts.</p>
+          <p>Engineered context, deliberate model choice. One person gets faster. Peers start asking how.</p>
         </div>
-      </li>
-
-      <li class="rung">
-        <span class="rung-num" aria-hidden="true">3</span>
-        <div>
+        <div class="card">
+          <p class="rung-num" aria-hidden="true">3</p>
           <h3>Builder</h3>
-          <p class="role">Answers questions with working software</p>
-          <dl>
-            <dt>Behaviors</dt>
-            <dd>Builds retrieval over real document sets, functional prototypes, scrapers, dashboards, small internal tools. Ships things engineering can evaluate instead of interpret.</dd>
-            <dt>Artifacts</dt>
-            <dd>Deployed prototypes. Queryable pipelines. Discovery output you can click on.</dd>
-            <dt>Organizational signal</dt>
-            <dd>Engineering starts pulling PM prototypes <em>into</em> evaluation instead of translating PM documents. Feasibility arguments get shorter, because there’s less left to argue about.</dd>
-          </dl>
+          <p class="rung-role">Answers are software.</p>
+          <p>Prototypes, pipelines, dashboards. Engineering evaluates instead of interprets, and feasibility arguments get shorter.</p>
         </div>
-      </li>
-
-      <li class="rung">
-        <span class="rung-num" aria-hidden="true">4</span>
-        <div>
+        <div class="card">
+          <p class="rung-num" aria-hidden="true">4</p>
           <h3>Orchestrator</h3>
-          <p class="role">Runs systems of agents; publishes tools others adopt</p>
-          <dl>
-            <dt>Behaviors</dt>
-            <dd>Designs multi-agent workflows with defined roles, persistent memory, and review built in. Packages personal tooling so colleagues can install it rather than admire it.</dd>
-            <dt>Artifacts</dt>
-            <dd>Published agents and skills in a shared internal marketplace; pipelines that run without their author in the room.</dd>
-            <dt>Organizational signal</dt>
-            <dd><strong>Other people’s work gets faster.</strong> First level where the gains leave the individual — and it comes with a number you can check: installs.</dd>
-          </dl>
+          <p class="rung-role">Runs agent teams.</p>
+          <p>Publishes tools colleagues actually install. The first level where the gains leave the individual.</p>
         </div>
-      </li>
-
-      <li class="rung">
-        <span class="rung-num" aria-hidden="true">5</span>
-        <div>
+        <div class="card">
+          <p class="rung-num" aria-hidden="true">5</p>
           <h3>Multiplier</h3>
-          <p class="role">Changes what the discipline expects of itself</p>
-          <dl>
-            <dt>Behaviors</dt>
-            <dd>Designs the operating model itself: competency definitions wired into career frameworks, gates wired into intake, shared tooling, measurement that survives a skeptical audience.</dd>
-            <dt>Artifacts</dt>
-            <dd>Standards, maturity assessments, governance rails, curricula — and org-level cycle-time numbers with baselines attached.</dd>
-            <dt>Organizational signal</dt>
-            <dd>The gains persist if the individual leaves. That’s the test.</dd>
-          </dl>
+          <p class="rung-role">Changes the discipline.</p>
+          <p>Ladders, gates, and measurement wired into how the org works. The gains survive the author.</p>
         </div>
-      </li>
-    </ol>
+      </div>
 
-    <div class="rung-note">
-      <strong>The distribution problem:</strong> most enterprises today have many 1s, some 2s,
-      a few 3s (usually unrecognized, usually solving their own problems quietly), and
-      approximately zero 4s and 5s. Not because the skills are rare — because levels 4 and 5
-      aren’t individual skills at all. They’re organizational permissions. Nobody reaches
-      level 5 by being personally productive; someone with authority has to let them change
-      what the PM job is defined as. Which makes this an org-design decision wearing a
-      training program’s clothes.
+      <p class="note">Most orgs today: many 1s, a few 3s, zero 5s. Not because the skills are rare.
+      Levels 4 and 5 aren’t skills at all, they’re <strong>permissions</strong>. Someone with authority
+      has to let you change what the PM job is defined as. That makes this an org-design decision
+      wearing a training program’s clothes.</p>
     </div>
   </section>
 
   <!-- ───────── GATES ───────── -->
-  <section id="gates" aria-labelledby="gates-h">
-    <h2 id="gates-h">Seven responsible-AI gates</h2>
-    <p class="section-lede">
-      Speed without governance is how AI programs die in legal review — or worse, in production.
-      These are the seven questions I make a product decision answer before AI ships in it.
-      They’re written as gates rather than principles for a simple reason: you can’t fail a principle.
-    </p>
+  <section id="gates" class="band">
+    <div class="shell">
+      <h2>Seven gates</h2>
+      <p class="lede">The questions a product decision answers before AI ships in it.
+      Written as gates rather than principles for a simple reason: you can’t fail a principle.</p>
 
-    <ol class="gates">
-      <li><strong>Grounding.</strong> <span>Can every generated answer cite its source? A system that can’t show where a claim came from isn’t ready for users whose decisions cost money.</span></li>
-      <li><strong>Data boundary.</strong> <span>Which data reaches which model, under what agreement, retained for how long? “It’s just a prompt” is how confidential data leaves companies.</span></li>
-      <li><strong>Human accountability.</strong> <span>A named human owns every AI output that reaches a customer or a decision. If nobody will put their name on it, it doesn’t ship.</span></li>
-      <li><strong>Failure design.</strong> <span>What does a wrong answer cost, who catches it, and what’s the fallback? The failure path gets designed with the same rigor as the demo path — before the incident, which is the cheap time to do it.</span></li>
-      <li><strong>Accessibility and inclusion.</strong> <span>AI experiences meet WCAG 2.2 AA and work with assistive technology in the first release, not the retrofit. Excluded users don’t file bug reports. They leave.</span></li>
-      <li><strong>Measurement.</strong> <span>A baseline recorded before launch, and a metric that could show failure — not just success. Enthusiasm is not an instrument.</span></li>
-      <li><strong>Disclosure.</strong> <span>People know when they’re reading machine output and when a decision about them involved a model. They find out eventually either way; the only real choice is whether you told them first.</span></li>
-    </ol>
+      <div class="grid grid-3">
+        <div class="card">
+          <p class="gate-num" aria-hidden="true">1</p>
+          <h3>Grounding</h3>
+          <p>Every answer cites its source, or it doesn’t ship to people whose decisions cost money.</p>
+        </div>
+        <div class="card">
+          <p class="gate-num" aria-hidden="true">2</p>
+          <h3>Data boundary</h3>
+          <p>Which data reaches which model, under what agreement. “It’s just a prompt” is how data leaks.</p>
+        </div>
+        <div class="card">
+          <p class="gate-num" aria-hidden="true">3</p>
+          <h3>Accountability</h3>
+          <p>A named human owns every output that reaches a customer. No name, no ship.</p>
+        </div>
+        <div class="card">
+          <p class="gate-num" aria-hidden="true">4</p>
+          <h3>Failure design</h3>
+          <p>Price the wrong answer before the incident. That’s the cheap time to do it.</p>
+        </div>
+        <div class="card">
+          <p class="gate-num" aria-hidden="true">5</p>
+          <h3>Accessibility</h3>
+          <p>WCAG 2.2 AA in the first release, not the retrofit. Excluded users don’t file bugs. They leave.</p>
+        </div>
+        <div class="card">
+          <p class="gate-num" aria-hidden="true">6</p>
+          <h3>Measurement</h3>
+          <p>A baseline, and a metric that could show failure. Enthusiasm is not an instrument.</p>
+        </div>
+        <div class="card">
+          <p class="gate-num" aria-hidden="true">7</p>
+          <h3>Disclosure</h3>
+          <p>People know when a machine wrote it. They find out eventually anyway; the only choice is whether you told them first.</p>
+        </div>
+      </div>
 
-    <details>
-      <summary>Why gates instead of principles?</summary>
-      <p>
-        Principles describe intent. Gates sit in the intake template and the launch checklist,
-        where the work actually flows, and they block things. A principle survives being
-        ignored — that’s roughly its defining feature. The test of a governance model isn’t
-        whether it reads well; it’s whether a team can fail it. This one can.
-      </p>
-    </details>
+      <p class="band-foot">Principles describe intent. <strong>Gates block launches.</strong>
+      The test of a governance model is whether a team can fail it. This one can.</p>
+    </div>
   </section>
 
   <!-- ───────── PLAYBOOK ───────── -->
-  <section id="playbook" aria-labelledby="playbook-h">
-    <h2 id="playbook-h">The 90-day adoption playbook</h2>
-    <p class="section-lede">
-      How to move a PM organization up the ladder without a reorg, a platform purchase, or a
-      mandate nobody follows. Order matters: measure, then build the commons, then wire it into
-      promotions. Most programs run this backwards, which is why most programs are slide decks.
-    </p>
+  <section id="playbook">
+    <div class="shell">
+      <h2>Ninety days</h2>
+      <p class="lede">Measure, then build the commons, then wire it into promotions. Most programs
+      run this backwards, which is why most programs are slide decks.</p>
 
-    <div class="phases">
-      <div class="phase">
-        <p class="span">Days 0–30</p>
-        <h3>Baseline &amp; seed</h3>
-        <ul>
-          <li>Instrument current cycle times: discovery-to-PRD, PRD-to-decision, question-to-answer. You can’t claim gains you never baselined, and someone will ask.</li>
-          <li>Map the org against the ladder, honestly. Expect a pyramid.</li>
-          <li>Find the level-3s already hiding in the org — every org has a few, quietly solving their own problems because nobody sanctioned it. They’re the seed cohort.</li>
-          <li>Stand up a sanctioned sandbox with explicit data-boundary rules, so experimentation stops being shadow IT.</li>
-        </ul>
-      </div>
-      <div class="phase">
-        <p class="span">Days 31–60</p>
-        <h3>Build the commons</h3>
-        <ul>
-          <li>Launch an internal marketplace where PM-built agents, skills, and templates are installable by anyone. This is the mechanism that turns one level-4 into a hundred faster PMs.</li>
-          <li>Put the seven gates directly into intake and PRD templates — governance as a form field, not a memo.</li>
-          <li>Seed-cohort office hours on real backlog items. Demos on toy problems convince nobody.</li>
-          <li>Publish the first before/after cycle-time numbers internally. Evidence recruits volunteers; mandates recruit compliance.</li>
-        </ul>
-      </div>
-      <div class="phase">
-        <p class="span">Days 61–90</p>
-        <h3>Wire it into promotions</h3>
-        <ul>
-          <li>Put the ladder into the PM career framework. Promotion criteria are the only adoption mechanism an enterprise has that survives leadership turnover.</li>
-          <li>Stand up a lightweight review board for gate exceptions, so governance has an owner and a queue instead of a vibe.</li>
-          <li>Report org-level numbers to leadership: cycle-time deltas, marketplace installs, gate pass rates.</li>
-          <li>Rotate seed-cohort members into every product family as named practice leads.</li>
-        </ul>
+      <div class="grid grid-3">
+        <div class="card phase">
+          <p class="phase-span" aria-hidden="true">0-30</p>
+          <p class="phase-name">Baseline &amp; seed</p>
+          <ul>
+            <li>Instrument cycle times first: discovery to PRD, PRD to decision, question to answer. You can’t claim gains you never baselined, and someone will ask.</li>
+            <li>Map the org against the ladder, honestly. Expect a pyramid.</li>
+            <li>Find the level-3s already hiding in the org and make them the seed cohort. Give them a sanctioned sandbox so experimenting stops being shadow IT.</li>
+          </ul>
+        </div>
+        <div class="card phase">
+          <p class="phase-span" aria-hidden="true">31-60</p>
+          <p class="phase-name">Build the commons</p>
+          <ul>
+            <li>An internal marketplace where PM-built agents, skills, and templates are installable by anyone. One level-4 becomes a hundred faster PMs.</li>
+            <li>The seven gates go into intake and PRD templates. Governance as a form field, not a memo.</li>
+            <li>Publish the first before-and-after numbers. Evidence recruits volunteers; mandates recruit compliance.</li>
+          </ul>
+        </div>
+        <div class="card phase">
+          <p class="phase-span" aria-hidden="true">61-90</p>
+          <p class="phase-name">Wire it into promotions</p>
+          <ul>
+            <li>The ladder goes into the career framework. Promotion criteria are the only mechanism that survives leadership turnover.</li>
+            <li>A lightweight review board for gate exceptions, so governance has an owner and a queue instead of a vibe.</li>
+            <li>Rotate the seed cohort into every product family as named practice leads.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ───────── EVIDENCE ───────── -->
-  <section id="evidence" aria-labelledby="evidence-h">
-    <h2 id="evidence-h">Receipts</h2>
-    <p class="section-lede">
-      An operating model is worth exactly as much as its author’s practice. Mine, briefly —
-      generalized where the details belong to my employer rather than to me.
-    </p>
+  <!-- ───────── RECEIPTS ───────── -->
+  <section id="receipts" class="alt">
+    <div class="shell">
+      <h2>Receipts</h2>
+      <p class="lede">An operating model is worth exactly as much as its author’s practice.</p>
 
-    <ul class="receipts">
-      <li>
-        <strong>Production AI, shipped.</strong>
-        <span>Wrote the first-version RAG engine behind an assistant that field technicians across 4,700+ retail locations now use daily — thousands of technical manuals ingested, chunked, embedded, and served with cited answers. Engineering took the prototype into the official build, which is the only compliment from engineering that counts.</span>
-      </li>
-      <li>
-        <strong>Tools other PMs install.</strong>
-        <span>Three agents and skills authored and published to my company’s internal AI marketplace — a notes-to-prototype pipeline and an automated design-standards auditor among them. Installable by anyone in the company, which means the level-4 claim comes with a number attached.</span>
-      </li>
-      <li>
-        <strong>Enterprise-scale results.</strong>
-        <span>Digital-twin and predictive-analytics platform tied to $1.5B+ in measured GMV impact. IoT monitoring contributing to $1B+ in annual waste reduction. A work-order platform serving 1.2M associates. Earlier careers: cloud-native 5G core delivery, and three communications spacecraft from vendor selection to on-orbit commissioning.</span>
-      </li>
-      <li>
-        <strong>Audited velocity.</strong>
-        <span>Discovery-to-PRD compressed from roughly two weeks to roughly 48 hours. The figure isn’t mine — it came from independent AI audits of six months of my own session logs. Gate #6 applies to me too.</span>
-      </li>
-      <li>
-        <strong>Personal practice, personally funded.</strong>
-        <span>300+ fine-tuned models across image, video, and mixture-of-experts LLMs. 100B+ parameter open-weight models running on my own hardware. Custom multi-agent orchestration with cost-aware routing between local and paid inference. Fifty published browser extensions, fifty public model-hub repos. When I make a call at work about hosting tradeoffs or fine-tuning feasibility, it’s because I already made it at home, on my own dime.</span>
-      </li>
-    </ul>
+      <div class="grid grid-3">
+        <div class="card">
+          <span class="tag">Production</span>
+          <h3>AI, shipped</h3>
+          <p>I wrote the first version of a RAG engine that now answers field technicians’ questions
+          every day, with cited sources. Engineering took the prototype into the official build.
+          That’s the only compliment from engineering that counts.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Adoption</span>
+          <h3>Tools other PMs install</h3>
+          <p>Agents and skills published to an internal AI marketplace: a notes-to-prototype pipeline,
+          an automated design-standards auditor. Adoption you can count in installs, not slideware.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Scale</span>
+          <h3>Platforms, not features</h3>
+          <p>Digital twins, predictive analytics, IoT monitoring, and work-order systems for one of the
+          largest physical operations in the world. Before that: cloud-native 5G, and three spacecraft
+          from vendor selection to on-orbit commissioning.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Velocity</span>
+          <h3>Audited, not asserted</h3>
+          <p>Discovery to PRD went from weeks to days. That measurement came from independent audits
+          of my own session logs, because gate six applies to me too.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Depth</span>
+          <h3>Personal practice</h3>
+          <p>Fine-tuned models, local open-weight hosting, multi-agent orchestration with cost-aware
+          routing. Built at home, on my own hardware. The tradeoffs I argue at work are ones I’ve
+          already paid for.</p>
+        </div>
+        <div class="card">
+          <span class="tag">This page</span>
+          <h3>The site is the demo</h3>
+          <p>Built with my own agent tooling. One HTML file, no dependencies, no scripts, no trackers,
+          accessible by default. Shipping beats describing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <details>
-      <summary>Why the details are generalized</summary>
-      <p>
-        Some of this concerns internal systems and figures that belong to my employer, not to me.
-        Gate #2 doesn’t stop applying just because the data would make me look good. What’s here
-        is what I’d defend in front of the people who own it.
-      </p>
-    </details>
+  <!-- ───────── ACCESSIBILITY ───────── -->
+  <section id="accessibility">
+    <div class="shell">
+      <h2>Accessible by default</h2>
+      <p class="lede">Built to WCAG 2.2 AA. Accessibility is a PM competence, and failing gate five
+      on my own homepage would be a bad look.</p>
+      <ul class="a11y-cols">
+        <li>Semantic landmarks, keyboard operable, visible focus everywhere</li>
+        <li>4.5:1 contrast or better in both light and dark themes</li>
+        <li>Honors reduced-motion; nothing animates, autoplays, or moves</li>
+        <li>Works with scripts disabled, scales to 200%, responsive to 320px</li>
+        <li>No external resources, no cookies, no tracking of any kind</li>
+        <li>Hit a barrier? Email me and I’ll fix it. Gates apply to the person who wrote them.</li>
+      </ul>
+    </div>
   </section>
 
 </main>
 
-<!-- ───────── ACCESSIBILITY ───────── -->
-<section id="accessibility" class="a11y" aria-labelledby="a11y-h">
-  <div class="wrap-wide">
-    <h2 id="a11y-h">Accessibility statement</h2>
-    <div class="prose">
-      <p>
-        This site is built to <strong>WCAG 2.2 Level AA</strong>. Partly because accessibility is
-        a competence I think belongs in the PM skill set, and partly because failing gate #5 on my
-        own homepage would be a bad look.
-      </p>
-    </div>
-    <ul>
-      <li>Semantic HTML landmarks and heading hierarchy throughout; a skip-to-content link is the first focusable element.</li>
-      <li>All text meets or exceeds a 4.5:1 contrast ratio in both light and dark themes (the page follows your system preference).</li>
-      <li>Fully keyboard-operable; visible focus indicators with 3px outlines and offset, never obscured by sticky elements.</li>
-      <li>Honors <code>prefers-reduced-motion</code>; no animation, autoplay, or parasitic movement.</li>
-      <li>No JavaScript required — the page is fully functional with scripts disabled. Disclosure widgets use native, accessible elements.</li>
-      <li>Text scales to 200% without loss of content or function; layout is responsive to 320px viewports.</li>
-      <li>No external resources: no CDN scripts, no third-party fonts, no trackers, no cookies.</li>
-    </ul>
-    <div class="prose" style="margin-top:1rem;">
-      <p>If you hit an accessibility barrier on this page, email me and I’ll fix it. That’s how gates work: they apply to the person who wrote them.</p>
-    </div>
-  </div>
-</section>
-
 <footer>
-  <div class="wrap-wide">
-    <p><strong style="color:var(--ink);">James Venrick</strong> — product leader. Physical AI, digital twins, IoT platforms, telecom infrastructure, and the operating models that make product organizations faster. The document was never the product; it just took a language model to make that obvious.</p>
-    <div class="contact-row">
+  <div class="shell">
+    <p><strong style="color:var(--ink);">James Venrick</strong> · Physical AI, digital twins, IoT platforms,
+    and the operating models that make product organizations faster. The document was never the product;
+    it just took a language model to make that obvious.</p>
+    <div class="links">
       <a href="mailto:venrick@gmail.com">venrick@gmail.com</a>
-      <a href="https://www.linkedin.com/in/jamesvenrick" rel="me">linkedin.com/in/jamesvenrick</a>
+      <a href="https://www.linkedin.com/in/jamesvenrick" rel="me">LinkedIn</a>
     </div>
-    <p style="margin-top:1.5rem;">Built by hand with my own agent tooling. One HTML file, zero dependencies, zero scripts. © 2026 James Venrick.</p>
   </div>
 </footer>
 
