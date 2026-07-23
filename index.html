@@ -180,14 +180,14 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
     <p class="kicker">A working operating model · v1 · July 2026</p>
     <h1>AI didn’t change what product managers own. It changed what counts as evidence.</h1>
     <p class="standfirst">
-      An operating model for AI-native product management at enterprise scale:
-      a five-level competency ladder, seven responsible-AI decision gates, and a
-      90-day playbook for moving an entire PM organization — not one productive individual — up the curve.
+      A five-level competency ladder, seven decision gates, and a 90-day plan for moving a whole
+      PM organization up the curve — written down in enough detail that you could steal it.
+      That's the point.
     </p>
     <p class="byline">
-      By <strong>James Venrick</strong> — enterprise product leader (Fortune 1 retail; previously telecom &amp; aerospace).
-      This page is itself a demonstration: hand-built with my own agent tooling, fully self-contained
-      (zero external requests), and written to WCAG 2.2 AA.
+      By <strong>James Venrick</strong> — product leader (Fortune 1 retail; before that telecom and spacecraft).
+      One HTML file, no scripts, no trackers, WCAG 2.2 AA. Built with my own agent tooling,
+      which is sort of the whole argument.
     </p>
   </div>
 </header>
@@ -212,31 +212,42 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
     <h2 id="thesis-h">The thesis</h2>
     <div class="prose">
       <p>
-        For twenty years, the unit of product management work has been the <em>document</em>:
-        the PRD, the roadmap deck, the business case. Documents are opinions with formatting.
-        Organizations learned to route them through review cycles precisely because opinions
-        need consensus to become action.
+        A PRD is an opinion with formatting. So is a roadmap deck. For twenty years that was fine,
+        because opinions were the best artifact available — building the real thing was expensive,
+        so organizations argued about descriptions of the thing instead. Review cycles exist because
+        a document can’t be tested. It can only be believed, and belief takes meetings.
       </p>
       <p>
-        AI collapsed the cost of a different unit of work: the <strong>working artifact</strong>.
-        A product manager can now answer a discovery question with a functioning prototype,
-        a data question with a queryable pipeline, and a feasibility debate with a deployed
-        demo — in the time it used to take to schedule the meeting. When evidence gets that
-        cheap, opinion-based artifacts stop being competitive. The PMs who internalize this
-        compress discovery-to-decision cycles from weeks to days. I have watched it happen,
-        measured it, and been the subject of the measurement.
+        AI changed exactly one variable: the cost of a working artifact. A product manager can now
+        answer a feasibility debate with a deployed prototype, a data question with a pipeline you
+        can query, a discovery question with software the engineers can poke at — in less time than
+        it takes to get the debate onto someone’s calendar. I’ve measured this on my own work.
+        Discovery-to-PRD went from roughly two weeks to roughly 48 hours, and I wasn’t the one
+        doing the measuring.
       </p>
       <p>
-        Here is the uncomfortable part for large organizations: <strong>this advantage does not
-        scale by procurement.</strong> Buying every PM a license produces AI-assisted PMs — the
-        same documents, faster. Producing AI-<em>native</em> PMs requires an operating model:
-        a shared definition of what good looks like at each level, guardrails that make speed
-        safe, an enablement layer where one PM’s tooling becomes everyone’s tooling, and
-        measurement that separates real cycle-time gains from theater.
+        Here’s the underlying system. The document was never the product; it was a proxy for a thing
+        too expensive to build speculatively. Organizations optimize proxies — they can’t help it,
+        proxies are what the incentives can see. But when the real thing gets cheaper than the proxy
+        for the thing, the proxy starts dying. Slowly, because the incentives keep pointing at it
+        long after everyone involved knows better. The direction isn’t in question, though.
       </p>
       <p>
-        That operating model is what this page contains. It is not a manifesto; it is the
-        system I run, offered in a form another organization could adopt on Monday.
+        Which sets up the failure mode I keep watching enterprises walk into: treating this as a
+        procurement problem. Buy every PM a license, run a training, declare victory. What you get
+        is AI-<em>assisted</em> PMs — the same documents, produced faster. Faster proxies. The
+        organization needed fewer proxies, and it bought a proxy accelerator.
+      </p>
+      <p>
+        Getting AI-<em>native</em> PMs means changing the system the PMs operate in: a shared
+        definition of what good looks like at each level, guardrails that make speed safe to use,
+        a place where one PM’s tooling becomes everyone’s tooling, and measurement honest enough
+        to catch theater. An operating model. The rest of this page is the one I run.
+      </p>
+      <p>
+        (Some documents deserve to live, to be clear. Strategy memos and decision records are
+        thinking, and thinking doesn’t have a prototype. The documents that die are the ones that
+        were standing in for working software.)
       </p>
     </div>
   </section>
@@ -245,9 +256,9 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
   <section id="ladder" aria-labelledby="ladder-h">
     <h2 id="ladder-h">The AI-native PM competency ladder</h2>
     <p class="section-lede">
-      Five levels, each defined by observable behaviors and artifacts — not tool familiarity.
-      The question at every level is the same: <em>what does this person’s work make possible
-      for other people?</em>
+      Five levels, defined by what you can observe — behaviors and artifacts, not tool
+      familiarity, which mostly measures enthusiasm. The test at every level is the same:
+      what does this person’s work change for other people?
     </p>
 
     <ol class="ladder">
@@ -258,11 +269,11 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
           <p class="role">Uses AI as a faster keyboard</p>
           <dl>
             <dt>Behaviors</dt>
-            <dd>Drafting, summarizing, rewriting. Chat as a convenience layer over existing workflow.</dd>
+            <dd>Drafting, summarizing, rewriting. Chat as a convenience layer on top of an unchanged workflow.</dd>
             <dt>Artifacts</dt>
-            <dd>Better-written documents, produced somewhat faster.</dd>
+            <dd>The same documents, written faster and slightly better.</dd>
             <dt>Organizational signal</dt>
-            <dd>Individual convenience. Nothing changes for anyone else.</dd>
+            <dd>None. This is where most organizations are today, and where most training programs stop.</dd>
           </dl>
         </div>
       </li>
@@ -274,11 +285,11 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
           <p class="role">Has patterns, not just prompts</p>
           <dl>
             <dt>Behaviors</dt>
-            <dd>Reusable prompt patterns; multi-document synthesis; deliberate model selection; treats context as something you engineer, not something you hope for.</dd>
+            <dd>Reusable prompt patterns, multi-document synthesis, deliberate model selection. Treats context as something you engineer rather than something you hope for.</dd>
             <dt>Artifacts</dt>
-            <dd>Research briefs from large corpora, competitive teardowns, structured analyses that would previously have been a week of reading.</dd>
+            <dd>Research briefs distilled from corpora nobody had time to read; competitive teardowns; analysis that used to be a week of open tabs.</dd>
             <dt>Organizational signal</dt>
-            <dd>Individual cycle time visibly drops. Peers start asking “how did you do that so fast?”</dd>
+            <dd>Cycle time visibly drops — for one person. Peers start asking how.</dd>
           </dl>
         </div>
       </li>
@@ -290,11 +301,11 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
           <p class="role">Answers questions with working software</p>
           <dl>
             <dt>Behaviors</dt>
-            <dd>Builds retrieval pipelines over real document sets, functional prototypes, scrapers, dashboards, and internal utilities. Ships things engineering can evaluate rather than interpret.</dd>
+            <dd>Builds retrieval over real document sets, functional prototypes, scrapers, dashboards, small internal tools. Ships things engineering can evaluate instead of interpret.</dd>
             <dt>Artifacts</dt>
-            <dd>Deployed prototypes; data pipelines; tools that remove personal friction. Discovery output is runnable.</dd>
+            <dd>Deployed prototypes. Queryable pipelines. Discovery output you can click on.</dd>
             <dt>Organizational signal</dt>
-            <dd>Engineering starts pulling PM prototypes <em>into</em> evaluation instead of translating PM documents. The discovery-to-decision cycle compresses by an order of magnitude.</dd>
+            <dd>Engineering starts pulling PM prototypes <em>into</em> evaluation instead of translating PM documents. Feasibility arguments get shorter, because there’s less left to argue about.</dd>
           </dl>
         </div>
       </li>
@@ -306,11 +317,11 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
           <p class="role">Runs systems of agents; publishes tools others adopt</p>
           <dl>
             <dt>Behaviors</dt>
-            <dd>Designs multi-agent workflows with defined roles, persistent memory, and quality review built in. Packages personal tooling so colleagues can install it, not admire it.</dd>
+            <dd>Designs multi-agent workflows with defined roles, persistent memory, and review built in. Packages personal tooling so colleagues can install it rather than admire it.</dd>
             <dt>Artifacts</dt>
-            <dd>Published agents and skills in a shared internal marketplace; pipelines that run without their author present.</dd>
+            <dd>Published agents and skills in a shared internal marketplace; pipelines that run without their author in the room.</dd>
             <dt>Organizational signal</dt>
-            <dd><strong>Other people’s work gets faster.</strong> This is the first level where the gains leave the individual.</dd>
+            <dd><strong>Other people’s work gets faster.</strong> First level where the gains leave the individual — and it comes with a number you can check: installs.</dd>
           </dl>
         </div>
       </li>
@@ -322,22 +333,24 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
           <p class="role">Changes what the discipline expects of itself</p>
           <dl>
             <dt>Behaviors</dt>
-            <dd>Designs the operating model: competency definitions wired into career frameworks, responsible-AI governance wired into intake, enablement infrastructure, and measurement that survives scrutiny.</dd>
+            <dd>Designs the operating model itself: competency definitions wired into career frameworks, gates wired into intake, shared tooling, measurement that survives a skeptical audience.</dd>
             <dt>Artifacts</dt>
-            <dd>Standards, maturity assessments, governance rails, training curricula — and measured org-level cycle-time and quality gains.</dd>
+            <dd>Standards, maturity assessments, governance rails, curricula — and org-level cycle-time numbers with baselines attached.</dd>
             <dt>Organizational signal</dt>
-            <dd>The gains persist if the individual leaves. The discipline itself has changed.</dd>
+            <dd>The gains persist if the individual leaves. That’s the test.</dd>
           </dl>
         </div>
       </li>
     </ol>
 
     <div class="rung-note">
-      <strong>The distribution problem:</strong> most enterprises today have many L1s, some L2s,
-      a handful of L3s, and almost no L4/L5 — because levels 4 and 5 are not individual skills.
-      They require someone with the standing to change how the organization defines the PM job.
-      That is an organizational design decision, and it is the highest-leverage one available
-      to a product org right now.
+      <strong>The distribution problem:</strong> most enterprises today have many 1s, some 2s,
+      a few 3s (usually unrecognized, usually solving their own problems quietly), and
+      approximately zero 4s and 5s. Not because the skills are rare — because levels 4 and 5
+      aren’t individual skills at all. They’re organizational permissions. Nobody reaches
+      level 5 by being personally productive; someone with authority has to let them change
+      what the PM job is defined as. Which makes this an org-design decision wearing a
+      training program’s clothes.
     </div>
   </section>
 
@@ -346,27 +359,27 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
     <h2 id="gates-h">Seven responsible-AI gates</h2>
     <p class="section-lede">
       Speed without governance is how AI programs die in legal review — or worse, in production.
-      These are the seven questions I require a product decision involving AI to answer.
-      They are written as gates, not values statements, because values statements don’t block a launch.
+      These are the seven questions I make a product decision answer before AI ships in it.
+      They’re written as gates rather than principles for a simple reason: you can’t fail a principle.
     </p>
 
     <ol class="gates">
-      <li><strong>Grounding.</strong> <span>Can every AI-generated answer cite its source? If the system cannot show where a claim came from, it is not ready for users whose decisions carry cost.</span></li>
-      <li><strong>Data boundary.</strong> <span>Exactly which data reaches which model, under what agreement, with what retention? “It’s just a prompt” is how confidential data leaves a company.</span></li>
-      <li><strong>Human accountability.</strong> <span>A named human owns every AI output that reaches a customer or a decision. If no one will sign their name to it, it does not ship.</span></li>
-      <li><strong>Failure design.</strong> <span>What does a wrong answer cost, who catches it, and what is the fallback? Design the failure path with the same rigor as the happy path — before launch, not after the incident.</span></li>
-      <li><strong>Accessibility and inclusion.</strong> <span>AI-powered experiences meet WCAG 2.2 AA and work with assistive technology from the first release. Accessibility retrofits cost more than accessibility defaults, and excluded users don’t file bug reports — they leave.</span></li>
-      <li><strong>Measurement.</strong> <span>A pre-registered baseline and a metric that would show failure, not only success. If the only evidence is enthusiasm, the gate stays closed.</span></li>
-      <li><strong>Disclosure.</strong> <span>People know when they are reading machine-generated content and when a decision about them involved a model. Trust is a product surface.</span></li>
+      <li><strong>Grounding.</strong> <span>Can every generated answer cite its source? A system that can’t show where a claim came from isn’t ready for users whose decisions cost money.</span></li>
+      <li><strong>Data boundary.</strong> <span>Which data reaches which model, under what agreement, retained for how long? “It’s just a prompt” is how confidential data leaves companies.</span></li>
+      <li><strong>Human accountability.</strong> <span>A named human owns every AI output that reaches a customer or a decision. If nobody will put their name on it, it doesn’t ship.</span></li>
+      <li><strong>Failure design.</strong> <span>What does a wrong answer cost, who catches it, and what’s the fallback? The failure path gets designed with the same rigor as the demo path — before the incident, which is the cheap time to do it.</span></li>
+      <li><strong>Accessibility and inclusion.</strong> <span>AI experiences meet WCAG 2.2 AA and work with assistive technology in the first release, not the retrofit. Excluded users don’t file bug reports. They leave.</span></li>
+      <li><strong>Measurement.</strong> <span>A baseline recorded before launch, and a metric that could show failure — not just success. Enthusiasm is not an instrument.</span></li>
+      <li><strong>Disclosure.</strong> <span>People know when they’re reading machine output and when a decision about them involved a model. They find out eventually either way; the only real choice is whether you told them first.</span></li>
     </ol>
 
     <details>
       <summary>Why gates instead of principles?</summary>
       <p>
-        Principles describe intent; gates change behavior. A principle survives being ignored —
-        a gate does not, because it sits in the intake template, the PRD skeleton, and the launch
-        checklist where work actually flows. The test of an AI governance model is not whether it
-        reads well but whether a team can fail it. This one can be failed, which is why passing it means something.
+        Principles describe intent. Gates sit in the intake template and the launch checklist,
+        where the work actually flows, and they block things. A principle survives being
+        ignored — that’s roughly its defining feature. The test of a governance model isn’t
+        whether it reads well; it’s whether a team can fail it. This one can.
       </p>
     </details>
   </section>
@@ -375,8 +388,9 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
   <section id="playbook" aria-labelledby="playbook-h">
     <h2 id="playbook-h">The 90-day adoption playbook</h2>
     <p class="section-lede">
-      How to move a PM organization up the ladder without a reorg, a platform purchase,
-      or a mandate nobody follows. The sequence matters: measure, then enable, then institutionalize.
+      How to move a PM organization up the ladder without a reorg, a platform purchase, or a
+      mandate nobody follows. Order matters: measure, then build the commons, then wire it into
+      promotions. Most programs run this backwards, which is why most programs are slide decks.
     </p>
 
     <div class="phases">
@@ -384,29 +398,29 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
         <p class="span">Days 0–30</p>
         <h3>Baseline &amp; seed</h3>
         <ul>
-          <li>Instrument current artifact cycle times: discovery-to-PRD, PRD-to-decision, question-to-answer. You cannot claim gains you never baselined.</li>
-          <li>Map the org against the ladder honestly. Expect a pyramid.</li>
-          <li>Identify the existing L3+ practitioners — every org has a few, usually unrecognized — and make them the seed cohort.</li>
-          <li>Stand up a sanctioned sandbox with clear data-boundary rules, so experimentation stops being shadow IT.</li>
+          <li>Instrument current cycle times: discovery-to-PRD, PRD-to-decision, question-to-answer. You can’t claim gains you never baselined, and someone will ask.</li>
+          <li>Map the org against the ladder, honestly. Expect a pyramid.</li>
+          <li>Find the level-3s already hiding in the org — every org has a few, quietly solving their own problems because nobody sanctioned it. They’re the seed cohort.</li>
+          <li>Stand up a sanctioned sandbox with explicit data-boundary rules, so experimentation stops being shadow IT.</li>
         </ul>
       </div>
       <div class="phase">
         <p class="span">Days 31–60</p>
-        <h3>Build the enablement layer</h3>
+        <h3>Build the commons</h3>
         <ul>
-          <li>Launch an internal marketplace where PM-built agents, skills, and templates are installable by anyone — the mechanism that turns L4 individuals into org-wide gains.</li>
-          <li>Embed the seven gates directly into intake and PRD templates.</li>
-          <li>Seed-cohort office hours: working sessions on real backlog items, not training-slide demos.</li>
-          <li>Publish the first before/after cycle-time numbers internally. Evidence recruits better than mandates.</li>
+          <li>Launch an internal marketplace where PM-built agents, skills, and templates are installable by anyone. This is the mechanism that turns one level-4 into a hundred faster PMs.</li>
+          <li>Put the seven gates directly into intake and PRD templates — governance as a form field, not a memo.</li>
+          <li>Seed-cohort office hours on real backlog items. Demos on toy problems convince nobody.</li>
+          <li>Publish the first before/after cycle-time numbers internally. Evidence recruits volunteers; mandates recruit compliance.</li>
         </ul>
       </div>
       <div class="phase">
         <p class="span">Days 61–90</p>
-        <h3>Institutionalize</h3>
+        <h3>Wire it into promotions</h3>
         <ul>
-          <li>Wire the ladder into the PM career framework — promotion criteria are the only durable adoption mechanism an enterprise has.</li>
-          <li>Stand up a lightweight review board for gate exceptions, so governance has an owner.</li>
-          <li>Report org-level metrics to leadership: cycle-time deltas, marketplace adoption, gate pass rates.</li>
+          <li>Put the ladder into the PM career framework. Promotion criteria are the only adoption mechanism an enterprise has that survives leadership turnover.</li>
+          <li>Stand up a lightweight review board for gate exceptions, so governance has an owner and a queue instead of a vibe.</li>
+          <li>Report org-level numbers to leadership: cycle-time deltas, marketplace installs, gate pass rates.</li>
           <li>Rotate seed-cohort members into every product family as named practice leads.</li>
         </ul>
       </div>
@@ -417,40 +431,39 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
   <section id="evidence" aria-labelledby="evidence-h">
     <h2 id="evidence-h">Receipts</h2>
     <p class="section-lede">
-      An operating model is only as credible as its author’s practice. Mine, briefly —
-      details generalized where they concern internal systems.
+      An operating model is worth exactly as much as its author’s practice. Mine, briefly —
+      generalized where the details belong to my employer rather than to me.
     </p>
 
     <ul class="receipts">
       <li>
         <strong>Production AI, shipped.</strong>
-        <span>Authored the first-version retrieval-augmented (RAG) engine behind an AI assistant now used daily by field technicians across 4,700+ retail locations — thousands of technical manuals ingested, chunked, embedded, and served with cited answers. Engineering adopted the prototype into the official build: the strongest technical-soundness vote a PM’s work can receive.</span>
+        <span>Wrote the first-version RAG engine behind an assistant that field technicians across 4,700+ retail locations now use daily — thousands of technical manuals ingested, chunked, embedded, and served with cited answers. Engineering took the prototype into the official build, which is the only compliment from engineering that counts.</span>
       </li>
       <li>
         <strong>Tools other PMs install.</strong>
-        <span>Three agents/skills authored and published to my company’s internal AI marketplace, installable by any employee — a notes-to-prototype pipeline and an automated design-standards auditor among them. Level 4 is not a claim; it is a download count.</span>
+        <span>Three agents and skills authored and published to my company’s internal AI marketplace — a notes-to-prototype pipeline and an automated design-standards auditor among them. Installable by anyone in the company, which means the level-4 claim comes with a number attached.</span>
       </li>
       <li>
-        <strong>Enterprise-scale product results.</strong>
-        <span>Digital-twin and predictive-analytics platform tied to $1.5B+ in measured GMV impact; IoT monitoring platform contributing to $1B+ in annual waste reduction; work-order platform serving 1.2M associates. Earlier: cloud-native 5G core delivery and three communications spacecraft, concept to on-orbit commissioning.</span>
+        <strong>Enterprise-scale results.</strong>
+        <span>Digital-twin and predictive-analytics platform tied to $1.5B+ in measured GMV impact. IoT monitoring contributing to $1B+ in annual waste reduction. A work-order platform serving 1.2M associates. Earlier careers: cloud-native 5G core delivery, and three communications spacecraft from vendor selection to on-orbit commissioning.</span>
       </li>
       <li>
-        <strong>Measured, independently audited velocity.</strong>
-        <span>Discovery-to-PRD cycle compressed from roughly two weeks to roughly 48 hours — a figure produced not by me but by independent AI audits of six months of my own session logs. I hold my own claims to gate #6.</span>
+        <strong>Audited velocity.</strong>
+        <span>Discovery-to-PRD compressed from roughly two weeks to roughly 48 hours. The figure isn’t mine — it came from independent AI audits of six months of my own session logs. Gate #6 applies to me too.</span>
       </li>
       <li>
         <strong>Personal practice, personally funded.</strong>
-        <span>300+ fine-tuned models (LoRA/QLoRA across image, video, and mixture-of-experts LLMs); 100B+ parameter open-weight models hosted on my own hardware; custom multi-agent orchestration with cost-aware routing; 50 published browser extensions and 50 public model-hub repositories. The judgment I bring to enterprise AI decisions is backed by hands-on practice I pay for myself.</span>
+        <span>300+ fine-tuned models across image, video, and mixture-of-experts LLMs. 100B+ parameter open-weight models running on my own hardware. Custom multi-agent orchestration with cost-aware routing between local and paid inference. Fifty published browser extensions, fifty public model-hub repos. When I make a call at work about hosting tradeoffs or fine-tuning feasibility, it’s because I already made it at home, on my own dime.</span>
       </li>
     </ul>
 
     <details>
       <summary>Why the details are generalized</summary>
       <p>
-        Some of this work concerns internal systems and figures that belong to my employer,
-        not to me. Gate #2 — the data boundary — applies to career artifacts too. What I publish
-        here is what I would be comfortable defending in front of the people who own the data,
-        which is the same standard I hold product teams to.
+        Some of this concerns internal systems and figures that belong to my employer, not to me.
+        Gate #2 doesn’t stop applying just because the data would make me look good. What’s here
+        is what I’d defend in front of the people who own it.
       </p>
     </details>
   </section>
@@ -463,9 +476,9 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
     <h2 id="a11y-h">Accessibility statement</h2>
     <div class="prose">
       <p>
-        This site is built to <strong>WCAG 2.2 Level AA</strong>. That is a deliberate professional
-        statement, not a compliance checkbox: I believe accessibility competence belongs in the
-        product management skill set, and gate #5 above applies to my own work first.
+        This site is built to <strong>WCAG 2.2 Level AA</strong>. Partly because accessibility is
+        a competence I think belongs in the PM skill set, and partly because failing gate #5 on my
+        own homepage would be a bad look.
       </p>
     </div>
     <ul>
@@ -478,14 +491,14 @@ footer p { color: var(--ink-soft); font-size: 0.9375rem; }
       <li>No external resources: no CDN scripts, no third-party fonts, no trackers, no cookies.</li>
     </ul>
     <div class="prose" style="margin-top:1rem;">
-      <p>If you encounter an accessibility barrier on this page, email me and I will fix it — that is also how the gates work.</p>
+      <p>If you hit an accessibility barrier on this page, email me and I’ll fix it. That’s how gates work: they apply to the person who wrote them.</p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap-wide">
-    <p><strong style="color:var(--ink);">James Venrick</strong> — enterprise product leader. Physical AI, digital twins, IoT platforms, telecom infrastructure, and the operating models that make product organizations faster.</p>
+    <p><strong style="color:var(--ink);">James Venrick</strong> — product leader. Physical AI, digital twins, IoT platforms, telecom infrastructure, and the operating models that make product organizations faster. The document was never the product; it just took a language model to make that obvious.</p>
     <div class="contact-row">
       <a href="mailto:venrick@gmail.com">venrick@gmail.com</a>
       <a href="https://www.linkedin.com/in/jamesvenrick" rel="me">linkedin.com/in/jamesvenrick</a>
