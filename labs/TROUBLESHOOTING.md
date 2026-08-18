@@ -1,16 +1,86 @@
 # Troubleshooting
 
-This file grows from reader reports. If you hit something not listed, open an
-issue with your OS, Python version, and the full error — that's how it gets
-added.
+This file grows from reader reports. If you hit something not listed, email me
+your OS, Python version, and the full error text — that's how it gets added.
+
+---
+
+## Start here
+
+**Run the preflight before anything else.** From inside a lab folder, with the
+interpreter you intend to use:
+
+```powershell
+.\.venv\Scripts\python.exe ..\verify_setup.py
+```
+
+```bash
+./.venv/bin/python ../verify_setup.py
+```
+
+It tells you which Python is actually running, whether that is a venv, whether
+the lab's packages import, and whether the lab's models still exist upstream.
+Three of the four most common failures show up there immediately.
+
+---
+
+## The four that catch almost everyone
+
+**1. You pasted the code fences.**
+```
+ash : The term 'ash' is not recognized as the name of a cmdlet
+```
+You copied a whole markdown block, triple backticks and all. The ```` ```bash ````
+line is markdown, not a command. Copy the lines *between* the fences, one at a
+time.
+
+**2. You are in `cmd.exe`, not PowerShell.**
+```
+The system cannot find the path specified.
+```
+A `cmd` prompt looks like `C:\Users\you>`; PowerShell looks like
+`PS C:\Users\you>`. In `cmd` the separator is `&&`, not `;` — paste a
+PowerShell one-liner into `cmd` and it swallows the whole thing as one path.
+Type `powershell` and press Enter, or run each line separately.
+
+**3. `source .venv/bin/activate` failed and you kept going.**
+```
+source : The term 'source' is not recognized...
+```
+This is the expensive one. `source` is bash; on Windows that line always fails.
+If you continue past it, the venv is not active and `pip install` goes to
+whatever Python is on your PATH — often Anaconda's `base` environment, where it
+can break unrelated packages. The labs avoid this entirely by calling the venv's
+interpreter by path. Never use `activate`:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+Check where you actually are — this must print a path ending in `.venv`:
+
+```powershell
+.\.venv\Scripts\python.exe -c "import sys; print(sys.prefix)"
+```
+
+**4. The model id went stale.**
+```
+OSError: <name> is not a local folder and is not a valid model identifier
+```
+Not your fault. Model repos get renamed and retired. Check
+[CURRENT.md](CURRENT.md) for the current id and pass it with `--model`. Note
+that Hugging Face returns **401**, not 404, for a repo that does not exist — it
+does not confirm whether private repos are there. A 401 on a public model id
+means it is gone, not that you need to log in.
 
 ---
 
 ## Install problems
 
 **`ModuleNotFoundError` right after installing**
-The virtual environment isn't active. You'll see `(.venv)` in your prompt when
-it is. Re-run the activate line.
+Almost always the wrong interpreter, not a failed install — see #3 above. Run
+`verify_setup.py`; if it reports a conda or system Python, your packages went
+somewhere else.
 
 **`pip: command not found`**
 Try `python -m pip` instead. On macOS/Linux you may need `python3` and
@@ -105,7 +175,7 @@ That's the Windows stub. Use `py` instead.
 In PowerShell `curl` is an alias for `Invoke-WebRequest`. Use `curl.exe`.
 
 **Long path / filename too long during pip install**
-Clone to a short path like `C:\labs`, or enable long paths (needs admin — see
+Unzip to a short path like `C:\labs`, or enable long paths (needs admin — see
 SETUP.md).
 
 **`ollama serve` says the port is already in use**

@@ -13,6 +13,24 @@
       "answer": "1989"
     }
   ],
+  "recall_edge": [
+    {
+      "prompt": "Who was the second person to walk on the Moon? Name only.",
+      "answer": "Buzz Aldrin"
+    },
+    {
+      "prompt": "Who was the third President of the United States? Name only.",
+      "answer": "Thomas Jefferson"
+    },
+    {
+      "prompt": "What is the longest river in South America? Name only.",
+      "answer": "The Amazon"
+    },
+    {
+      "prompt": "In which year did the Chernobyl disaster occur? Year only.",
+      "answer": "1986"
+    }
+  ],
   "reasoning": [
     {
       "prompt": "A shop sells pens at 3 for $4.50. I buy 11 pens. Any leftover pens beyond a multiple of 3 cost $1.75 each. What do I pay in total? Show your working, then give the final number on its own line.",

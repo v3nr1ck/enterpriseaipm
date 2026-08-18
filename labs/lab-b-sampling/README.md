@@ -8,14 +8,70 @@ Chapter 4.
 
 ---
 
+## Quickest way to run this
+
+Double-click **`RUN-THIS-Windows.bat`** (Windows) or
+**`RUN-THIS-Mac-Linux.command`** (Mac) in this folder. It sets everything up
+the first time and then runs the lab. Nothing else needed.
+
+*Mac: if it refuses to open, right-click it and choose Open, then Open again.
+Only needed once.*
+
+Prefer to type the commands yourself? Carry on below.
+
+---
+
 ## Setup
 
-```bash
-cd lab-b-sampling
-python -m venv .venv
-source .venv/bin/activate        # Windows PowerShell: .\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+**Run these one line at a time.** Do not paste the fence lines (the triple
+backticks) — they are markdown, not commands. Pasting a whole block at once is
+the single most common way this lab fails before it starts.
+
+### Windows (PowerShell)
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
+
+### macOS / Linux
+
+```bash
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
+```
+
+### Verify before you continue
+
+This must print a path ending in `.venv`:
+
+```powershell
+.\.venv\Scripts\python.exe -c "import sys; print(sys.prefix)"
+```
+
+```bash
+./.venv/bin/python -c "import sys; print(sys.prefix)"
+```
+
+If it prints a conda path, a system Python, or anything else, **stop**. Your
+packages installed into the wrong environment and nothing below will work.
+
+### Running the lab
+
+Every `python` in this README means the venv's interpreter:
+
+```powershell
+.\.venv\Scripts\python.exe watch_it_choose.py
+```
+
+```bash
+./.venv/bin/python watch_it_choose.py
+```
+
+Calling the interpreter by path is deliberate. It needs no `activate`, so
+PowerShell's execution policy cannot block it, and there is no way to silently
+install into the wrong environment — which is what `source .venv/bin/activate`
+does on Windows, where it fails without stopping the script that follows.
 
 This installs torch, which is a ~2GB download. If that's a problem, use
 `colab.ipynb` instead — same lab, nothing installed.

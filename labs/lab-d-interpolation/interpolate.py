@@ -192,7 +192,7 @@ def classify_midpoints(paths, text_a, text_b):
 
 def main():
     p = argparse.ArgumentParser(description="Lab D: the interpolation walk.")
-    p.add_argument("--model", default="runwayml/stable-diffusion-v1-5")
+    p.add_argument("--model", default="stable-diffusion-v1-5/stable-diffusion-v1-5")
     p.add_argument("--a", default=PROMPT_A)
     p.add_argument("--b", default=PROMPT_B)
     p.add_argument("--frames", type=int, default=10)
@@ -230,7 +230,9 @@ def main():
     print("=" * 70)
     print(f"  Open {outdir} and view the frames in order.")
     print()
-    print("  It is not a crossfade. Frame 5 is not frame 0 and frame 9")
+    # Name the frames this run actually produced, not a hardcoded 10-frame set.
+    mid, last = args.frames // 2, args.frames - 1
+    print(f"  It is not a crossfade. Frame {mid} is not frame 0 and frame {last}")
     print("  overlaid at 50% each — it is a coherent image of a single thing")
     print("  that is halfway between two concepts. Stone that has gone")
     print("  metallic. Fog thinning into haze over salt.")

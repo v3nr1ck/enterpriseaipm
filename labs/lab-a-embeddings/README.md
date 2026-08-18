@@ -8,14 +8,70 @@ Chapters 1 and 2.
 
 ---
 
+## Quickest way to run this
+
+Double-click **`RUN-THIS-Windows.bat`** (Windows) or
+**`RUN-THIS-Mac-Linux.command`** (Mac) in this folder. It sets everything up
+the first time and then runs the lab. Nothing else needed.
+
+*Mac: if it refuses to open, right-click it and choose Open, then Open again.
+Only needed once.*
+
+Prefer to type the commands yourself? Carry on below.
+
+---
+
 ## Setup
 
-```bash
-cd lab-a-embeddings
-python -m venv .venv
-source .venv/bin/activate        # Windows PowerShell: .\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+**Run these one line at a time.** Do not paste the fence lines (the triple
+backticks) — they are markdown, not commands. Pasting a whole block at once is
+the single most common way this lab fails before it starts.
+
+### Windows (PowerShell)
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
+
+### macOS / Linux
+
+```bash
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
+```
+
+### Verify before you continue
+
+This must print a path ending in `.venv`:
+
+```powershell
+.\.venv\Scripts\python.exe -c "import sys; print(sys.prefix)"
+```
+
+```bash
+./.venv/bin/python -c "import sys; print(sys.prefix)"
+```
+
+If it prints a conda path, a system Python, or anything else, **stop**. Your
+packages installed into the wrong environment and nothing below will work.
+
+### Running the lab
+
+Every `python` in this README means the venv's interpreter:
+
+```powershell
+.\.venv\Scripts\python.exe walk_the_space.py
+```
+
+```bash
+./.venv/bin/python walk_the_space.py
+```
+
+Calling the interpreter by path is deliberate. It needs no `activate`, so
+PowerShell's execution policy cannot block it, and there is no way to silently
+install into the wrong environment — which is what `source .venv/bin/activate`
+does on Windows, where it fails without stopping the script that follows.
 
 First run downloads a ~90MB model. Once only.
 
@@ -107,8 +163,15 @@ next week, do it on data your team argues about.
 
 ## Troubleshooting
 
-**`ModuleNotFoundError: sentence_transformers`** — the venv isn't active, or
-`pip install -r requirements.txt` didn't finish. Re-run it and read the output.
+**`ModuleNotFoundError: sentence_transformers`** — you are running a different
+Python from the one you installed into. Check which:
+
+```powershell
+.\.venv\Scripts\python.exe ..\verify_setup.py
+```
+
+If that reports a conda or system Python rather than the `.venv`, your packages
+went elsewhere. Install with the venv's interpreter explicitly, not bare `pip`.
 
 **Download fails / SSL errors on a corporate network** — a proxy is probably
 intercepting. Use the Colab notebook instead; don't fight the proxy.

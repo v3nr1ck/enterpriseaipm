@@ -84,12 +84,17 @@ def generate_with_trace(torch, pipe, prompt, steps, guidance, seed, outdir):
     saved = []
 
     def on_step(pipe_ref, step, timestep, kwargs):
+        # Not every scheduler runs exactly num_inference_steps callbacks. SD
+        # 1.5's default PNDM scheduler runs one extra, so trust the scheduler's
+        # own timestep count rather than what we asked for — otherwise the
+        # progress line reads "step 7/6".
+        total = len(getattr(pipe_ref.scheduler, "timesteps", [])) or steps
         latents = kwargs["latents"]
         img = decode_latent(pipe_ref, latents, torch)
         path = os.path.join(outdir, f"step_{step + 1:03d}.png")
         img.save(path)
         saved.append(path)
-        print(f"  step {step + 1:>3}/{steps}  ->  {os.path.basename(path)}")
+        print(f"  step {step + 1:>3}/{total}  ->  {os.path.basename(path)}")
         return kwargs
 
     print(f'Prompt: "{prompt}"')
@@ -167,7 +172,7 @@ def sweep_seeds(torch, pipe, prompt, steps, guidance, outdir, n=6):
 
 def main():
     p = argparse.ArgumentParser(description="Lab C: watch the denoising walk.")
-    p.add_argument("--model", default="runwayml/stable-diffusion-v1-5",
+    p.add_argument("--model", default="stable-diffusion-v1-5/stable-diffusion-v1-5",
                    help="see ../CURRENT.md")
     p.add_argument("--prompt", default=DEFAULT_PROMPT)
     p.add_argument("--steps", type=int, default=25)

@@ -135,6 +135,8 @@ footer .shell { display: flex; flex-wrap: wrap; justify-content: space-between; 
 footer p { color: var(--ink-soft); font-size: 0.9375rem; max-width: 34rem; }
 footer .links { display: flex; gap: 1.5rem; font-size: 0.9375rem; }
 </style>
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="Site index for language models">
+
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -146,7 +148,7 @@ footer .links { display: flex; gap: 1.5rem; font-size: 0.9375rem; }
       <li><a href="/">Operating model</a></li>
       <li><a href="#labs">The six labs</a></li>
       <li><a href="#start">Start here</a></li>
-      <li><a href="/latent-space-labs.zip">Download</a></li>
+      <li><a href="latent-space-labs.zip">Download</a></li>
     </ul>
   </div>
 </nav>
@@ -215,19 +217,18 @@ footer .links { display: flex; gap: 1.5rem; font-size: 0.9375rem; }
         <div class="card">
           <span class="tag">Download</span>
           <h3>On your machine</h3>
-          <p><a href="/latent-space-labs.zip">Download latent-space-labs.zip</a>, unzip it, then:</p>
-          <pre>cd latent-space-labs/lab-a-embeddings
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python walk_the_space.py</pre>
-          <p>Windows: <span class="mono">py -m venv .venv</span> then <span class="mono">.\.venv\Scripts\Activate.ps1</span>. Full notes in <a href="SETUP.md">SETUP.md</a>.</p>
+          <p><a href="latent-space-labs.zip">Download latent-space-labs.zip</a>, unzip it, open the folder for the lab you want, and double-click one file:</p>
+          <pre>RUN-THIS-Windows.bat        (Windows)
+RUN-THIS-Mac-Linux.command  (Mac)</pre>
+          <p>That is the whole setup. It finds Python, builds a private environment for that lab the first time, installs what the lab needs, and runs it. If Python is missing it tells you what to download and which box to tick in the installer.</p>
+          <p class="meta">Mac: the first time, right-click the file and choose Open. Once only. Typed commands are in <a href="SETUP.md">SETUP.md</a>.</p>
         </div>
         <div class="card">
           <span class="tag">No install</span>
           <h3>Locked-down laptop</h3>
-          <p>Labs A, B, and F have Colab notebooks inside the zip. Open the notebook. Nothing installs on your machine.</p>
-          <p class="meta"><a href="SETUP.md">Setup routes</a> · <a href="/latent-space-labs.zip">Download the zip</a></p>
+          <p>Labs A, B, and C ship a Colab notebook. Each notebook carries the lab's code inside it, so there is nothing to clone and nothing to upload except the notebook. Open it in Colab and run every cell.</p>
+          <p>Nothing installs on your machine, which is usually the only route that works behind a corporate proxy.</p>
+          <p class="meta"><a href="SETUP.md">Setup routes</a> · <a href="TROUBLESHOOTING.md">Troubleshooting</a></p>
         </div>
       </div>
     </div>
@@ -240,7 +241,7 @@ python walk_the_space.py</pre>
     Code is MIT-licensed. The book text is all rights reserved.</p>
     <div class="links">
       <a href="/">Operating model</a>
-      <a href="/latent-space-labs.zip">Download the labs</a>
+      <a href="latent-space-labs.zip">Download the labs</a>
       <a href="mailto:venrick@gmail.com">venrick@gmail.com</a>
     </div>
   </div>

@@ -1,10 +1,6 @@
 # Latent Space — Labs
 
-Companion code for *Latent Space: A Product Manager's Guide to How AI Actually Works*
-by James Venrick.
-
-**Live at [enterpriseaipm.com/labs](https://www.enterpriseaipm.com/labs).**
-Download: [enterpriseaipm.com/latent-space-labs.zip](https://www.enterpriseaipm.com/latent-space-labs.zip).
+Companion code for *Latent Space: A Product Manager's Guide to How AI Actually Works*.
 
 **Everything volatile lives in [CURRENT.md](CURRENT.md)** — model names, versions,
 approximate costs. The book deliberately avoids printing those, because they go
@@ -48,23 +44,50 @@ After that, C and D go together (D reuses C's setup), and E and F are independen
 
 ## Setup
 
-See [SETUP.md](SETUP.md). The short version:
+**You do not need GitHub, git, or a terminal.**
 
-```bash
-# download https://www.enterpriseaipm.com/latent-space-labs.zip and unzip
-cd latent-space-labs
-python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-# no root requirements file — install per lab
-#   cd lab-a-embeddings && pip install -r requirements.txt
+1. Unzip the file you downloaded.
+2. Open the folder for the lab you want — start with `lab-a-embeddings`.
+3. Double-click **`RUN-THIS-Windows.bat`** (Windows) or
+   **`RUN-THIS-Mac-Linux.command`** (Mac).
+
+That is the whole setup. The launcher finds Python, builds a private setup for
+that lab the first time you run it, and then runs the lab. A window opens and
+stays open so you can read the output.
+
+If Python is not installed, the launcher tells you exactly what to download and
+which box to tick in the installer. (It is "Add Python to PATH", on the first
+screen, and it is easy to miss.)
+
+**Mac note:** the first time you open a `.command` file, macOS may refuse
+because it was downloaded from the internet. Right-click it and choose **Open**,
+then **Open** again in the dialog. You only do this once per file.
+
+### If you would rather type commands
+
+Each lab's README has the exact commands for Windows and for Mac/Linux, one
+line at a time. There is no top-level install: **each lab has its own
+`requirements.txt` and its own private environment**, so you never download a
+2GB library for a lab that does not need one. Labs C and D share one; Labs E
+and F install nothing at all.
+
+### If something goes wrong
+
+Run the preflight. It reports which Python you are using, whether the lab's
+packages are installed, and whether the lab's models still exist:
+
+```
+python verify_setup.py
 ```
 
-Each lab has its own extra requirements, installed per-lab, so you never download
-a 2GB library for a lab that doesn't need one.
+Then see [TROUBLESHOOTING.md](TROUBLESHOOTING.md), which opens with the four
+problems that catch almost everyone.
 
-**On a locked-down work laptop?** Labs A, B, and F have Google Colab paths that
-need nothing installed. C and D can run on a rented GPU. Only E really wants a
-local install. See SETUP.md for the no-install routes.
+**On a locked-down work laptop?** Labs A, B, and C ship a `colab.ipynb` that
+runs in Google Colab with nothing installed on your machine at all — the
+notebook carries the lab's code inside it, so you upload one file and press
+Run All. Lab F's training runs in Colab too (see its README). Lab E needs
+Ollama locally and has no no-install route. See SETUP.md.
 
 ---
 
@@ -83,9 +106,9 @@ Nothing here is production code and none of it should be treated as such.
 
 1. Check [CURRENT.md](CURRENT.md) — a model name has probably changed.
 2. Check [TROUBLESHOOTING.md](TROUBLESHOOTING.md) — someone has probably hit it.
-3. Open an issue. Include your OS, your Python version (`python --version`), and
-   the full error text. Failures reported by readers are how TROUBLESHOOTING.md
-   gets written.
+3. Still stuck? Email me with your OS, your Python version, and the full error
+   text — copy the whole thing, not a summary of it. Reader reports are how
+   TROUBLESHOOTING.md gets written.
 
 ---
 

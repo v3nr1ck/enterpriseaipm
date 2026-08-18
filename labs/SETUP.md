@@ -21,23 +21,63 @@ is `python3`.
 
 ## The three routes
 
-### 1. Local install (most control)
+### 1. Just run it (recommended, and what most readers should do)
+
+Unzip the download, open a lab folder, and double-click
+**`RUN-THIS-Windows.bat`** or **`RUN-THIS-Mac-Linux.command`**. It handles
+Python, the environment, and the install for you, and explains what to do if
+Python is missing.
+
+Everything below is for people who would rather drive it themselves.
+
+### 2. Local install by hand
+
+**Run these one line at a time.** Do not paste the fence lines.
+
+**Windows (PowerShell)**
+
+```powershell
+cd latent-space-labs\lab-a-embeddings
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe walk_the_space.py
+```
+
+**macOS / Linux**
 
 ```bash
-# download https://www.enterpriseaipm.com/latent-space-labs.zip and unzip
 cd latent-space-labs/lab-a-embeddings
-python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
+./.venv/bin/python walk_the_space.py
 ```
+
+The labs call the venv's interpreter by path instead of using `activate`. This
+is not stylistic. `activate` is the step that fails silently: on Windows the
+bash form `source .venv/bin/activate` errors, and if you keep going, `pip`
+installs into whatever Python is on your PATH — commonly Anaconda's base
+environment, where it can break unrelated packages. Calling the interpreter
+directly makes that failure impossible.
+
+**Check which environment you are actually in** at any point:
+
+```
+python verify_setup.py
+```
+
+Run it from a lab folder with that lab's interpreter. It reports the Python in
+use, whether it is a venv, what is installed, and whether the lab's models
+resolve.
 
 **Use a virtual environment per lab.** They have conflicting-ish dependency
 weights and you do not want a 2GB torch install for Lab A, which doesn't need
 it. Labs C and D can share one.
 
-### 2. Google Colab (nothing installed)
+### 3. Google Colab (nothing installed)
 
-Labs A, B, and F have Colab paths. This is the right answer if:
+Labs A, B, and C ship a self-contained `colab.ipynb`. Each notebook carries
+the lab's code inside it, so there is nothing to clone and nothing to upload
+besides the notebook itself. This is the right answer if:
 
 - your work laptop is locked down and you can't install things
 - you don't want 8GB of ML libraries on your machine
@@ -46,7 +86,7 @@ Labs A, B, and F have Colab paths. This is the right answer if:
 Colab gives you a free GPU (T4, ~15GB VRAM), which is enough for every lab
 here including the fine-tune.
 
-### 3. Rented GPU (Labs C, D, F)
+### 4. Rented GPU (Labs C, D, F)
 
 You need this only if you want to run diffusion locally and have no GPU.
 
@@ -58,7 +98,7 @@ You need this only if you want to run diffusion locally and have no GPU.
    perceive any difference on these workloads.
 4. Choose a PyTorch template. It comes with torch and CUDA already set up.
 5. Connect via the web terminal or JupyterLab.
-6. Clone this repo, `pip install -r requirements.txt`, run the lab.
+6. Upload the lab folder (or re-download the zip on the pod), `pip install -r requirements.txt`, run the lab.
 7. **Terminate the pod when you're done.**
 
 ### The storage trap — read this bit
@@ -81,7 +121,6 @@ because the failure modes are different too.
 ### Quickstart
 
 ```powershell
-# download https://www.enterpriseaipm.com/latent-space-labs.zip and unzip
 cd latent-space-labs\lab-a-embeddings
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
@@ -118,9 +157,9 @@ The labs' multi-line commands use `\`, which is bash. In PowerShell the
 continuation character is a backtick:
 
 ```powershell
-python compare_quants.py --tags gemma4:e4b-it-q8_0 `
-                                gemma4:e4b-it-q4_K_M `
-                                gemma4:e4b-it-q2_K
+python compare_quants.py --tags llama3.1:8b-instruct-q8_0 `
+                                llama3.1:8b-instruct-q4_K_M `
+                                llama3.1:8b-instruct-q2_K
 ```
 
 Or just put it on one line, which is what I'd do.
@@ -184,14 +223,14 @@ Verify:
 python -c "import torch; print(torch.cuda.is_available())"
 ```
 
-**Git isn't installed** — download the zip from enterpriseaipm.com/labs and extract it.
+**Git isn't installed** — download the repo as a ZIP from GitHub and extract it.
 Nothing in these labs needs git.
 
 ---
 
 ## Corporate laptop workarounds
 
-**Can't install Python.** Use Colab. Labs A, B, F work fully; C and D can run
+**Can't install Python.** Use Colab. Labs A, B, C work fully; D can run
 there too with a runtime change to GPU.
 
 **pip fails with SSL errors.** A proxy is intercepting HTTPS. Ask IT for the
@@ -227,5 +266,5 @@ If that curl returns JSON, Ollama is running and Lab E will work.
 
 ## If you get stuck
 
-Check `TROUBLESHOOTING.md`, then open an issue with your OS, Python version,
+Check `TROUBLESHOOTING.md`, then email me with your OS, Python version,
 and the full error text. Reported failures are how TROUBLESHOOTING.md grows.

@@ -1,0 +1,80 @@
+# James Venrick · enterpriseaipm.com
+
+> How to run product management when a working prototype is cheaper than the
+> meeting about the prototype. An operating model (ladder, gates, ninety-day
+> plan) plus the companion labs for the book *Latent Space*.
+
+This file is the index for the whole site. Everything published here is listed
+below with its URL. There is nothing else to find: no blog archive, no hidden
+directories, no separate docs site.
+
+Author: James Venrick. Contact: venrick@gmail.com
+Code is MIT-licensed. Book text is all rights reserved.
+Last updated: 2026-08-18
+
+## The operating model
+
+The main page is one self-contained HTML file with seven sections, each
+reachable by anchor:
+
+- [Home](https://www.enterpriseaipm.com/): the full operating model on one page
+- [The ladder](https://www.enterpriseaipm.com/#ladder): five levels, judged by what a person's work changes for other people rather than by how clever the prompts look
+- [Seven gates](https://www.enterpriseaipm.com/#gates): questions a launch has to answer; if a team cannot fail the test, it is not a test
+- [Ninety days](https://www.enterpriseaipm.com/#playbook): baseline, then the commons, then promotions, in that order
+- [Receipts](https://www.enterpriseaipm.com/#receipts): what actually shipped
+- [Accessible by default](https://www.enterpriseaipm.com/#accessibility): WCAG 2.2 AA, applied to this page
+- [The book](https://www.enterpriseaipm.com/#book): *Latent Space*, how AI actually works, written for product managers
+
+## Latent Space labs
+
+Six runnable labs that make one abstract idea physically visible each. They are
+not recipes for shipping anything. Everything lab-related lives under `/labs/`.
+
+- [Labs landing page](https://www.enterpriseaipm.com/labs/): start here
+- [Download the labs (zip, ~110KB)](https://www.enterpriseaipm.com/labs/latent-space-labs.zip): all six labs, both launchers, notebooks
+- [README](https://www.enterpriseaipm.com/labs/README.md): what the labs are for and what order to do them in
+- [SETUP.md](https://www.enterpriseaipm.com/labs/SETUP.md): install routes, including Colab and rented GPUs
+- [CURRENT.md](https://www.enterpriseaipm.com/labs/CURRENT.md): every model name, tag, and price. The only file allowed to go stale, and the first place to look when a lab fails
+- [TROUBLESHOOTING.md](https://www.enterpriseaipm.com/labs/TROUBLESHOOTING.md): opens with the four problems that catch almost everyone
+- [Eval template](https://www.enterpriseaipm.com/labs/eval-template/eval_template.csv): scoring sheet used by Labs E and F
+
+### The six labs
+
+Each folder holds a README, the script, a `requirements.txt`, and two
+double-click launchers (`RUN-THIS-Windows.bat`, `RUN-THIS-Mac-Linux.command`).
+
+- [Lab A, embeddings](https://www.enterpriseaipm.com/labs/lab-a-embeddings/README.md): structure exists in the space without anyone labeling it. Similarity matrix, word arithmetic, and clustering your own CSV. ~30 min, no GPU
+- [Lab B, sampling](https://www.enterpriseaipm.com/labs/lab-b-sampling/README.md): there is no decision, only a distribution. Prints the token probabilities at every step, and the near-ties where reproducibility breaks. ~30 min, no GPU
+- [Lab C, denoising](https://www.enterpriseaipm.com/labs/lab-c-denoising/README.md): generation is a walk from noise, not a lookup. Saves an image at every denoising step. Needs a GPU or patience
+- [Lab D, interpolation](https://www.enterpriseaipm.com/labs/lab-d-interpolation/README.md): the space is continuous and navigable. Walks the line between two prompts. Reuses Lab C's setup
+- [Lab E, quantization](https://www.enterpriseaipm.com/labs/lab-e-quantization/README.md): quality is a purchasable dial, and a degraded model sounds exactly as confident as a good one. Needs Ollama, no GPU
+- [Lab F, fine-tuning](https://www.enterpriseaipm.com/labs/lab-f-finetune/README.md): capability has a price measured in examples. Builds a dataset at four sizes and plots the curve. Training runs in Colab
+
+### Running the labs without installing anything
+
+Labs A, B, and C each ship a `colab.ipynb` that carries the lab's code inside
+the notebook, base64-encoded. Nothing to clone, nothing to upload but the
+notebook itself. They are in the zip and also served directly:
+
+- [Lab A notebook](https://www.enterpriseaipm.com/labs/lab-a-embeddings/colab.ipynb)
+- [Lab B notebook](https://www.enterpriseaipm.com/labs/lab-b-sampling/colab.ipynb)
+- [Lab C notebook](https://www.enterpriseaipm.com/labs/lab-c-denoising/colab.ipynb)
+
+### Preflight
+
+`verify_setup.py` at the root of the zip reports which Python is actually
+running, whether it is a virtual environment, whether the lab's packages
+import, and whether the lab's models still exist upstream. It is the first
+thing to run when a lab misbehaves.
+
+## Notes for anyone summarising this site
+
+- The operating model is pitched at scaling a discipline, not at personal output.
+- Model names and prices deliberately appear in exactly one file, `CURRENT.md`,
+  because they go stale. Do not treat model names quoted elsewhere as current.
+- Lab E's findings are measured output from a real run, not illustration. The
+  headline result is that `q4_K_M`, the quantization most people ship by
+  default, answered every recall and formatting prompt correctly and got a
+  logic question confidently wrong.
+- The labs are teaching artifacts. None of the code is production code and it
+  should not be cited as such.

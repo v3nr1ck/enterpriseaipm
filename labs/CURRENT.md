@@ -5,7 +5,8 @@
 The book contains no model names, no versions, and no prices, on purpose. They all
 live here, where they can be corrected without reprinting anything.
 
-**Last verified: August 2026.**
+**Last verified: 18 August 2026** — every model id and tag on this page was checked
+against the live Hugging Face and Ollama registries on that date.
 
 If you are reading this more than about six months after that date and something
 doesn't work, the model name has probably changed. Substitute a current equivalent
@@ -30,9 +31,9 @@ covered in the lab and the messiness is part of the lesson** — don't "fix" it.
 
 | Role | Current pick | Notes |
 |---|---|---|
-| Default | `Qwen/Qwen2.5-0.5B-Instruct` | Text-only, ~1GB, runs on CPU. Use this — Lab B needs raw next-token logits from a causal LM. |
-| Do not use | `Qwen/Qwen3.5-0.8B` | Real model, but it is a **vision-language** checkpoint (`Qwen3_5ForConditionalGeneration`). `AutoModelForCausalLM` will fail or fight you. |
-| Fallback | `Qwen/Qwen3-0.6B` | Also text-only. Use if 2.5 is gone. |
+| Default | `Qwen/Qwen2.5-0.5B-Instruct` | ~1GB download, runs on CPU. Small enough that CPU-only generation is tolerable. |
+| Step up | `Qwen/Qwen3-1.7B` | ~3.4GB. Sharper distributions, still CPU-tolerable. |
+| Fallback | `Qwen/Qwen3-0.6B` | Smallest current option. Use if the above are gone. |
 
 We use Hugging Face `transformers` rather than Ollama here, because we need raw
 logits and Ollama's exposure of them has moved around between versions. If you'd
@@ -43,9 +44,12 @@ endpoint, the lab README explains the swap.
 
 | Role | Current pick | VRAM |
 |---|---|---|
-| Default | `runwayml/stable-diffusion-v1-5` | ~4GB |
+| Default | `stable-diffusion-v1-5/stable-diffusion-v1-5` | ~4GB |
 | Faster | `stabilityai/sdxl-turbo` | ~7GB, 1–4 steps instead of 30 |
-| Mirror, if the above 404s | `stable-diffusion-v1-5/stable-diffusion-v1-5` | ~4GB |
+| Lighter | `stabilityai/sd-turbo` | ~2.5GB, 1–4 steps |
+
+The old `runwayml/stable-diffusion-v1-5` id was retired; it still 307-redirects to
+the canonical repo above, but point at the canonical name directly.
 
 **Why an old model?** SD 1.5 is from 2022 and there are far better generators now.
 We use it anyway because it has one text encoder instead of two, which makes the
@@ -64,24 +68,51 @@ tag.** Check the live tag list before running:
 - Browse `https://ollama.com/library/<model>/tags`
 - Or run `ollama show <model> --modelfile` after pulling
 
-As of August 2026, a working set on the `gemma4` family:
+As of August 2026, two verified ladders. **Which you pick changes what the lab
+shows**, so pick deliberately:
+
+**Recommended — `llama3.1:8b-instruct`** (~16.6GB for all three). At 2-bit this
+model stays fluent and well-formed but gets edge facts confidently wrong, which
+is the lesson the lab is built around:
 
 ```
-gemma4:e4b-it-q8_0      # high precision
-gemma4:e4b-it-q4_K_M    # the standard default
-gemma4:e4b-it-q2_K      # where it breaks
+llama3.1:8b-instruct-q8_0      # high precision
+llama3.1:8b-instruct-q4_K_M    # the standard default
+llama3.1:8b-instruct-q2_K      # fluent, confident, wrong
 ```
 
-The lab script takes the three tags as arguments, so you can substitute freely.
-What matters is that you compare *the same model* at three precisions — which
-model is almost irrelevant.
+**Cheaper — `qwen2.5:3b-instruct`** (~6.5GB for all three). Shows a different
+result: at 2-bit a 3B model does not degrade, it collapses into repeated digits
+and stray CJK and never stops generating. Useful, but it is a viability-cliff
+demo, not a confident-wrongness demo:
+
+```
+qwen2.5:3b-instruct-q8_0
+qwen2.5:3b-instruct-q4_K_M
+qwen2.5:3b-instruct-q2_K       # collapses entirely
+```
+
+**The `gemma4` family no longer publishes anything below q4_K_M**, so it cannot
+be used for this lab at all — there is no low-precision end to the ladder.
+
+Verified 18 August 2026: the q4_K_M and q2_K tags of both families above were
+pulled and run. `llama3.1:8b-instruct-q8_0` was not pulled; it is listed on the
+assumption that q8 is no worse than q4.
+
+The lab script takes the tags as arguments, so you can substitute freely. What
+matters absolutely is that you compare *the same model* at different
+precisions — that is the only way to isolate quantization from base capability.
+
+The model is **not** irrelevant, though, which is a correction to earlier
+advice here. Size determines whether you see graceful degradation or a cliff,
+and a model that is simply bad at a task will be bad at it at every precision.
 
 ## Lab F — Fine-tuning
 
 | Role | Current pick |
 |---|---|
 | Training library | `unsloth` — 2× faster, ~70% less VRAM, and has maintained free Colab notebooks |
-| Base model | A 1B–4B **text** instruct model from the current Unsloth notebook. As of writing, `unsloth/Qwen3-4B-Instruct` or `unsloth/Qwen2.5-3B-Instruct`. Avoid natively multimodal Qwen3.5 checkpoints unless the notebook says they work. |
+| Base model | A 1B–4B instruct model. As of writing, `unsloth/Qwen3-4B-Instruct-2507` or similar |
 | Free compute | Google Colab free tier (T4, ~15GB VRAM) fits a 4-bit 7B comfortably |
 
 Unsloth maintains its own notebooks at `https://unsloth.ai/docs` and they are

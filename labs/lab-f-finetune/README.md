@@ -10,6 +10,17 @@ Chapters 11 and 12. **This is the most operationally useful lab in the book.**
 
 ---
 
+## Quickest way to run this
+
+Double-click **`RUN-THIS-Windows.bat`** (Windows) or
+**`RUN-THIS-Mac-Linux.command`** (Mac) in this folder. It builds the datasets
+for Step 1. Nothing to install — this lab uses only the standard library.
+
+*Mac: if it refuses to open, right-click it and choose Open, then Open again.
+Only needed once.*
+
+---
+
 ## What you're actually doing
 
 Most writing treats fine-tuning as a shipping tactic. Here it's a **probe**.

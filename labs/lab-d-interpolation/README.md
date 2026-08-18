@@ -11,16 +11,55 @@ do only one lab, do this one.
 
 ---
 
+## Quickest way to run this
+
+Double-click **`RUN-THIS-Windows.bat`** (Windows) or
+**`RUN-THIS-Mac-Linux.command`** (Mac) in this folder. It sets everything up
+the first time and then runs the lab. Nothing else needed.
+
+*Mac: if it refuses to open, right-click it and choose Open, then Open again.
+Only needed once.*
+
+Prefer to type the commands yourself? Carry on below.
+
+---
+
 ## Setup
 
-Same environment as Lab C. If you already did that:
+Same dependencies as Lab C. **Reuse Lab C's venv** rather than building a second
+4GB one — just call its interpreter by path.
 
-```bash
-cd lab-d-interpolation
-source ../lab-c-denoising/.venv/bin/activate    # reuse it
+**Run these one line at a time.** Do not paste the fence lines.
+
+### Windows (PowerShell), reusing Lab C
+
+```powershell
+..\lab-c-denoising\.venv\Scripts\python.exe interpolate.py
 ```
 
-Otherwise `pip install -r requirements.txt` here.
+### macOS / Linux, reusing Lab C
+
+```bash
+../lab-c-denoising/.venv/bin/python interpolate.py
+```
+
+### If you skipped Lab C
+
+Build a venv here first, then use it for every command below:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe interpolate.py
+```
+
+```bash
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
+./.venv/bin/python interpolate.py
+```
+
+Every `python` below means whichever of those interpreters you chose.
 
 ---
 
