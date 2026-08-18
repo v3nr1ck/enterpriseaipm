@@ -1,8 +1,7 @@
 # enterpriseaipm.com
 
-**The AI-Native PM Operating Model** and the companion labs for
-*Latent Space: A Product Manager’s Guide to How AI Actually Works*,
-by James Venrick.
+James Venrick. Companion labs for *Latent Space*.
+Homepage and labs at enterpriseaipm.com.
 
 - Homepage: one self-contained HTML page. No CDNs, no external fonts, no scripts, no trackers.
 - Labs: [enterpriseaipm.com/labs](https://www.enterpriseaipm.com/labs) · source in [`labs/`](labs/)
