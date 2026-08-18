@@ -4,7 +4,7 @@ Companion code for *Latent Space: A Product Manager's Guide to How AI Actually W
 by James Venrick.
 
 **Live at [enterpriseaipm.com/labs](https://www.enterpriseaipm.com/labs).**
-Source: [github.com/v3nr1ck/enterpriseaipm](https://github.com/v3nr1ck/enterpriseaipm).
+Download: [enterpriseaipm.com/latent-space-labs.zip](https://www.enterpriseaipm.com/latent-space-labs.zip).
 
 **Everything volatile lives in [CURRENT.md](CURRENT.md)** — model names, versions,
 approximate costs. The book deliberately avoids printing those, because they go
@@ -51,8 +51,8 @@ After that, C and D go together (D reuses C's setup), and E and F are independen
 See [SETUP.md](SETUP.md). The short version:
 
 ```bash
-git clone https://github.com/v3nr1ck/enterpriseaipm.git
-cd enterpriseaipm/labs
+# download https://www.enterpriseaipm.com/latent-space-labs.zip and unzip
+cd latent-space-labs
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 # no root requirements file — install per lab

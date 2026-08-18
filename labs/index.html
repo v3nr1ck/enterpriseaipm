@@ -146,7 +146,7 @@ footer .links { display: flex; gap: 1.5rem; font-size: 0.9375rem; }
       <li><a href="/">Operating model</a></li>
       <li><a href="#labs">The six labs</a></li>
       <li><a href="#start">Start here</a></li>
-      <li><a href="https://github.com/v3nr1ck/enterpriseaipm">GitHub</a></li>
+      <li><a href="/latent-space-labs.zip">Download</a></li>
     </ul>
   </div>
 </nav>
@@ -168,37 +168,37 @@ footer .links { display: flex; gap: 1.5rem; font-size: 0.9375rem; }
       <div class="grid grid-3">
         <div class="card">
           <span class="tag">Lab A · 20–30 min · $0</span>
-          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-a-embeddings">Embeddings</a></h3>
+          <h3>Embeddings</h3>
           <p>Structure exists in the space without anyone labeling it.</p>
           <p class="meta">Any laptop, 8GB RAM</p>
         </div>
         <div class="card">
           <span class="tag">Lab B · 30 min · $0</span>
-          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-b-sampling">Sampling</a></h3>
+          <h3>Sampling</h3>
           <p>There is no decision. There is only a distribution.</p>
           <p class="meta">Any laptop, 8GB RAM</p>
         </div>
         <div class="card">
           <span class="tag">Lab C · 45–60 min · $0–1</span>
-          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-c-denoising">Denoising</a></h3>
+          <h3>Denoising</h3>
           <p>Generation is a walk from noise.</p>
           <p class="meta">6GB VRAM, or rent</p>
         </div>
         <div class="card">
           <span class="tag">Lab D · 45 min · $0–2</span>
-          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-d-interpolation">Interpolation</a></h3>
+          <h3>Interpolation</h3>
           <p>The space is continuous and navigable.</p>
           <p class="meta">6GB VRAM, or rent</p>
         </div>
         <div class="card">
           <span class="tag">Lab E · 45 min · $0</span>
-          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-e-quantization">Quantization</a></h3>
+          <h3>Quantization</h3>
           <p>Quality is a purchasable dial.</p>
           <p class="meta">16GB RAM, no GPU</p>
         </div>
         <div class="card">
           <span class="tag">Lab F · an afternoon · $2–5</span>
-          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-f-finetune">Fine-tune</a></h3>
+          <h3>Fine-tune</h3>
           <p>Capability has a price measured in examples.</p>
           <p class="meta">Free Colab, or rent</p>
         </div>
@@ -210,24 +210,24 @@ footer .links { display: flex; gap: 1.5rem; font-size: 0.9375rem; }
   <section id="start">
     <div class="shell">
       <h2>Start here</h2>
-      <p class="lede">The book does not print model names or prices. Those live in <a href="https://github.com/v3nr1ck/enterpriseaipm/blob/main/labs/CURRENT.md">CURRENT.md</a>, which is the only file that is allowed to go stale. If a command fails, check that first, then <a href="https://github.com/v3nr1ck/enterpriseaipm/blob/main/labs/TROUBLESHOOTING.md">TROUBLESHOOTING.md</a>.</p>
+      <p class="lede">The book does not print model names or prices. Those live in <a href="CURRENT.md">CURRENT.md</a>, which is the only file that is allowed to go stale. If a command fails, check that first, then <a href="TROUBLESHOOTING.md">TROUBLESHOOTING.md</a>.</p>
       <div class="grid grid-2">
         <div class="card">
-          <span class="tag">Clone</span>
+          <span class="tag">Download</span>
           <h3>On your machine</h3>
-          <pre>git clone https://github.com/v3nr1ck/enterpriseaipm.git
-cd enterpriseaipm/labs/lab-a-embeddings
+          <p><a href="/latent-space-labs.zip">Download latent-space-labs.zip</a>, unzip it, then:</p>
+          <pre>cd latent-space-labs/lab-a-embeddings
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python walk_the_space.py</pre>
-          <p>Windows: <span class="mono">py -m venv .venv</span> then <span class="mono">.\.venv\Scripts\Activate.ps1</span>. Full notes in <a href="https://github.com/v3nr1ck/enterpriseaipm/blob/main/labs/SETUP.md">SETUP.md</a>.</p>
+          <p>Windows: <span class="mono">py -m venv .venv</span> then <span class="mono">.\.venv\Scripts\Activate.ps1</span>. Full notes in <a href="SETUP.md">SETUP.md</a>.</p>
         </div>
         <div class="card">
           <span class="tag">No install</span>
           <h3>Locked-down laptop</h3>
-          <p>Labs A, B, and F have Colab notebooks. Open the notebook in the lab folder. Nothing installs on your machine.</p>
-          <p class="meta"><a href="https://github.com/v3nr1ck/enterpriseaipm/blob/main/labs/SETUP.md">Setup routes</a> · <a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs">Browse the files</a></p>
+          <p>Labs A, B, and F have Colab notebooks inside the zip. Open the notebook. Nothing installs on your machine.</p>
+          <p class="meta"><a href="SETUP.md">Setup routes</a> · <a href="/latent-space-labs.zip">Download the zip</a></p>
         </div>
       </div>
     </div>
@@ -240,7 +240,7 @@ python walk_the_space.py</pre>
     Code is MIT-licensed. The book text is all rights reserved.</p>
     <div class="links">
       <a href="/">Operating model</a>
-      <a href="https://github.com/v3nr1ck/enterpriseaipm">GitHub</a>
+      <a href="/latent-space-labs.zip">Download the labs</a>
       <a href="mailto:venrick@gmail.com">venrick@gmail.com</a>
     </div>
   </div>

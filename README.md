@@ -9,10 +9,7 @@ by James Venrick.
 - Built to WCAG 2.2 AA.
 - Deployed via GitHub Pages.
 
-```bash
-git clone https://github.com/v3nr1ck/enterpriseaipm.git
-cd enterpriseaipm/labs
-```
+Reader download (no GitHub): [enterpriseaipm.com/latent-space-labs.zip](https://www.enterpriseaipm.com/latent-space-labs.zip)
 
 © 2026 James Venrick. Site and book text may not be republished without permission.
 Lab code is MIT-licensed; see `labs/LICENSE`.

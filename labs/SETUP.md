@@ -24,8 +24,8 @@ is `python3`.
 ### 1. Local install (most control)
 
 ```bash
-git clone https://github.com/v3nr1ck/enterpriseaipm.git
-cd enterpriseaipm/labs/lab-a-embeddings
+# download https://www.enterpriseaipm.com/latent-space-labs.zip and unzip
+cd latent-space-labs/lab-a-embeddings
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -81,8 +81,8 @@ because the failure modes are different too.
 ### Quickstart
 
 ```powershell
-git clone https://github.com/v3nr1ck/enterpriseaipm.git
-cd enterpriseaipm\labs\lab-a-embeddings
+# download https://www.enterpriseaipm.com/latent-space-labs.zip and unzip
+cd latent-space-labs\lab-a-embeddings
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
@@ -184,7 +184,7 @@ Verify:
 python -c "import torch; print(torch.cuda.is_available())"
 ```
 
-**Git isn't installed** — download the repo as a ZIP from GitHub and extract it.
+**Git isn't installed** — download the zip from enterpriseaipm.com/labs and extract it.
 Nothing in these labs needs git.
 
 ---
