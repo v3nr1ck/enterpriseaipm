@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latent Space Labs · James Venrick</title>
+<meta name="description" content="Companion labs for Latent Space: A Product Manager’s Guide to How AI Actually Works. Six small experiments that make the mechanism visible.">
+<meta name="author" content="James Venrick">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f5f5f7;
+  --ink: #1d1d1f;
+  --ink-soft: #515158;
+  --accent: #0066cc;
+  --card-radius: 20px;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --bg-alt: #161617;
+    --ink: #f5f5f7;
+    --ink-soft: #a6a6ad;
+    --accent: #3f9fff;
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  font-size: 1.0625rem;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--accent); color: #fff;
+  padding: 0.75rem 1.25rem; font-weight: 700; z-index: 100;
+}
+.skip-link:focus { left: 0; }
+.shell { max-width: 1440px; margin: 0 auto; padding-left: clamp(1.25rem, 5vw, 4rem); padding-right: clamp(1.25rem, 5vw, 4rem); }
+
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  .nav { background: rgba(22,22,23,0.8); border-bottom-color: rgba(255,255,255,0.12); }
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3rem; }
+.nav-name { font-weight: 700; font-size: 0.9375rem; color: var(--ink); letter-spacing: -0.01em; }
+.nav-name:hover { text-decoration: none; }
+.nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem; list-style: none; }
+.nav ul a {
+  display: inline-block; padding: 0.65rem 0.8rem; font-size: 0.875rem; font-weight: 500;
+  color: var(--ink-soft); border-radius: 8px;
+}
+.nav ul a:hover { color: var(--ink); text-decoration: none; }
+
+.hero { padding: clamp(4rem, 9vw, 7rem) 0 clamp(2.5rem, 5vw, 4rem); }
+h1 {
+  font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+  line-height: 1.05; letter-spacing: -0.025em; font-weight: 700;
+  max-width: 16ch;
+}
+.hero-sub {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  color: var(--ink-soft); max-width: 40rem; margin: 1.25rem 0 0;
+}
+code, .mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+}
+pre {
+  background: var(--bg-alt);
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-top: 1rem;
+}
+
+section { padding: clamp(2.75rem, 6vw, 5rem) 0; scroll-margin-top: 4rem; }
+.alt { background: var(--bg-alt); }
+h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  letter-spacing: -0.02em; line-height: 1.1; font-weight: 700;
+}
+.lede { color: var(--ink-soft); font-size: 1.0625rem; max-width: 42rem; margin: 0.75rem 0 0; }
+
+.grid { display: grid; gap: 1.25rem; margin-top: 2rem; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
+.card {
+  background: var(--bg-alt); border-radius: var(--card-radius);
+  padding: clamp(1.4rem, 2.2vw, 2rem);
+}
+.alt .card { background: var(--bg); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+@media (prefers-color-scheme: dark) {
+  .alt .card { background: #232326; box-shadow: none; }
+}
+.card h3 { font-size: 1.125rem; font-weight: 700; letter-spacing: -0.01em; }
+.card .tag {
+  display: block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--accent); margin-bottom: 0.45rem;
+}
+.card p { color: var(--ink-soft); font-size: 0.9375rem; margin-top: 0.45rem; }
+.card .meta { margin-top: 0.85rem; font-size: 0.8125rem; color: var(--ink-soft); }
+
+.note { color: var(--ink-soft); max-width: 44rem; margin-top: 1.5rem; }
+.note strong { color: var(--ink); }
+
+footer { border-top: 1px solid var(--bg-alt); padding: 3rem 0 4rem; }
+@media (prefers-color-scheme: dark) { footer { border-top-color: #2c2c2e; } }
+footer .shell { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; align-items: baseline; }
+footer p { color: var(--ink-soft); font-size: 0.9375rem; max-width: 34rem; }
+footer .links { display: flex; gap: 1.5rem; font-size: 0.9375rem; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="nav" aria-label="Site">
+  <div class="shell nav-inner">
+    <a class="nav-name" href="/">James Venrick</a>
+    <ul>
+      <li><a href="/">Operating model</a></li>
+      <li><a href="#labs">The six labs</a></li>
+      <li><a href="#start">Start here</a></li>
+      <li><a href="https://github.com/v3nr1ck/enterpriseaipm">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero shell">
+  <p class="tag" style="text-transform:uppercase;letter-spacing:0.08em;font-size:0.8125rem;font-weight:700;color:var(--accent);margin-bottom:0.85rem;">Companion to the book</p>
+  <h1>Latent Space labs</h1>
+  <p class="hero-sub">
+    Six small experiments that make one mechanism visible. None of them is a recipe
+    for shipping a product. If a lab feels small, that is the point.
+  </p>
+</header>
+
+<main id="main">
+  <section id="labs" class="alt">
+    <div class="shell">
+      <h2>The six</h2>
+      <p class="lede">A and B first. They need a laptop and nothing else. After that, C and D go together, and E and F are independent.</p>
+      <div class="grid grid-3">
+        <div class="card">
+          <span class="tag">Lab A · 20–30 min · $0</span>
+          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-a-embeddings">Embeddings</a></h3>
+          <p>Structure exists in the space without anyone labeling it.</p>
+          <p class="meta">Any laptop, 8GB RAM</p>
+        </div>
+        <div class="card">
+          <span class="tag">Lab B · 30 min · $0</span>
+          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-b-sampling">Sampling</a></h3>
+          <p>There is no decision. There is only a distribution.</p>
+          <p class="meta">Any laptop, 8GB RAM</p>
+        </div>
+        <div class="card">
+          <span class="tag">Lab C · 45–60 min · $0–1</span>
+          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-c-denoising">Denoising</a></h3>
+          <p>Generation is a walk from noise.</p>
+          <p class="meta">6GB VRAM, or rent</p>
+        </div>
+        <div class="card">
+          <span class="tag">Lab D · 45 min · $0–2</span>
+          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-d-interpolation">Interpolation</a></h3>
+          <p>The space is continuous and navigable.</p>
+          <p class="meta">6GB VRAM, or rent</p>
+        </div>
+        <div class="card">
+          <span class="tag">Lab E · 45 min · $0</span>
+          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-e-quantization">Quantization</a></h3>
+          <p>Quality is a purchasable dial.</p>
+          <p class="meta">16GB RAM, no GPU</p>
+        </div>
+        <div class="card">
+          <span class="tag">Lab F · an afternoon · $2–5</span>
+          <h3><a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs/lab-f-finetune">Fine-tune</a></h3>
+          <p>Capability has a price measured in examples.</p>
+          <p class="meta">Free Colab, or rent</p>
+        </div>
+      </div>
+      <p class="note">Total spend if you do all six and use free Colab where offered: <strong>under $5.</strong></p>
+    </div>
+  </section>
+
+  <section id="start">
+    <div class="shell">
+      <h2>Start here</h2>
+      <p class="lede">The book does not print model names or prices. Those live in <a href="https://github.com/v3nr1ck/enterpriseaipm/blob/main/labs/CURRENT.md">CURRENT.md</a>, which is the only file that is allowed to go stale. If a command fails, check that first, then <a href="https://github.com/v3nr1ck/enterpriseaipm/blob/main/labs/TROUBLESHOOTING.md">TROUBLESHOOTING.md</a>.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <span class="tag">Clone</span>
+          <h3>On your machine</h3>
+          <pre>git clone https://github.com/v3nr1ck/enterpriseaipm.git
+cd enterpriseaipm/labs/lab-a-embeddings
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python walk_the_space.py</pre>
+          <p>Windows: <span class="mono">py -m venv .venv</span> then <span class="mono">.\.venv\Scripts\Activate.ps1</span>. Full notes in <a href="https://github.com/v3nr1ck/enterpriseaipm/blob/main/labs/SETUP.md">SETUP.md</a>.</p>
+        </div>
+        <div class="card">
+          <span class="tag">No install</span>
+          <h3>Locked-down laptop</h3>
+          <p>Labs A, B, and F have Colab notebooks. Open the notebook in the lab folder. Nothing installs on your machine.</p>
+          <p class="meta"><a href="https://github.com/v3nr1ck/enterpriseaipm/blob/main/labs/SETUP.md">Setup routes</a> · <a href="https://github.com/v3nr1ck/enterpriseaipm/tree/main/labs">Browse the files</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell">
+    <p><strong style="color:var(--ink);">James Venrick</strong> · Companion labs for <em>Latent Space</em>.
+    Code is MIT-licensed. The book text is all rights reserved.</p>
+    <div class="links">
+      <a href="/">Operating model</a>
+      <a href="https://github.com/v3nr1ck/enterpriseaipm">GitHub</a>
+      <a href="mailto:venrick@gmail.com">venrick@gmail.com</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,10 +1,18 @@
 # enterpriseaipm.com
 
-**The AI-Native PM Operating Model** — a working operating model for AI-native product
-management at enterprise scale, by James Venrick.
+**The AI-Native PM Operating Model** and the companion labs for
+*Latent Space: A Product Manager’s Guide to How AI Actually Works*,
+by James Venrick.
 
-- Single self-contained HTML page: no CDNs, no external fonts, no scripts, no trackers.
-- Built to WCAG 2.2 AA (see the accessibility statement on the page).
+- Homepage: one self-contained HTML page. No CDNs, no external fonts, no scripts, no trackers.
+- Labs: [enterpriseaipm.com/labs](https://www.enterpriseaipm.com/labs) · source in [`labs/`](labs/)
+- Built to WCAG 2.2 AA.
 - Deployed via GitHub Pages.
 
-© 2026 James Venrick. Content may not be republished without permission.
+```bash
+git clone https://github.com/v3nr1ck/enterpriseaipm.git
+cd enterpriseaipm/labs
+```
+
+© 2026 James Venrick. Site and book text may not be republished without permission.
+Lab code is MIT-licensed; see `labs/LICENSE`.

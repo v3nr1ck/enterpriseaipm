@@ -1,0 +1,44 @@
+{
+  "recall": [
+    {
+      "prompt": "What is the capital of France? Answer in one word.",
+      "answer": "Paris"
+    },
+    {
+      "prompt": "Who wrote the novel Moby-Dick? Answer with the name only.",
+      "answer": "Herman Melville"
+    },
+    {
+      "prompt": "In what year did the Berlin Wall fall? Answer with the year only.",
+      "answer": "1989"
+    }
+  ],
+  "reasoning": [
+    {
+      "prompt": "A shop sells pens at 3 for $4.50. I buy 11 pens. Any leftover pens beyond a multiple of 3 cost $1.75 each. What do I pay in total? Show your working, then give the final number on its own line.",
+      "answer": "3 sets of 3 = $13.50, plus 2 singles at $1.75 = $3.50. Total $17.00"
+    },
+    {
+      "prompt": "Every Bloop is a Razzie. Some Razzies are Lazzies. Does it follow that some Bloops are Lazzies? Answer yes or no, then explain in one sentence.",
+      "answer": "No. It does not follow."
+    },
+    {
+      "prompt": "I have a 5-litre jug and a 3-litre jug, and unlimited water. Describe the shortest sequence of steps to measure exactly 4 litres.",
+      "answer": "Fill 5, pour into 3 (2 left in 5), empty 3, pour the 2 into 3, fill 5, top up 3 from 5 (needs 1), leaving 4 in the 5-litre jug."
+    }
+  ],
+  "format_following": [
+    {
+      "prompt": "List exactly three European capital cities. Output only a JSON array of strings. No prose, no code fences, no explanation.",
+      "answer": "A bare JSON array of three strings"
+    },
+    {
+      "prompt": "Summarise what a product manager does in exactly 12 words. Count them. Output only the sentence.",
+      "answer": "Exactly 12 words, nothing else"
+    },
+    {
+      "prompt": "Reply with the single word ACKNOWLEDGED and nothing else. Do not add punctuation, explanation, or any other text.",
+      "answer": "ACKNOWLEDGED"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+id,text
+T-001,"Duplicate payment on the October invoice, need a refund"
+T-002,"Dashboard takes forever loading, sometimes just times out"
+T-003,Search is laggy and results take ten seconds
+T-004,SSO with Okta stopped working for the whole team this morning
+T-005,Refund still hasn't appeared on my card after two weeks
+T-006,Why did my card get charged before the trial ended
+T-007,Export times out on anything over a thousand rows
+T-008,"Account locked after three attempts, no reset email"
+T-009,SSO redirect loops back to the login page every time
+T-010,Login works on desktop but not on the mobile app
+T-011,The whole thing is slow and crashes on large files
+T-012,Two factor auth code never arrives on my phone
+T-013,Payment failed but the charge went through anyway
+T-014,Can't login after the password reset email arrived
+T-015,Page freezes when I scroll the long list
+T-016,Timeout errors all morning when saving records
+T-017,I was charged twice for the same invoice this month
+T-018,The billing page shows an amount that doesn't match my invoice
+T-019,Need to reset password but the account email is old
+T-020,Password reset link expired before I could use it
+T-021,Can I get an invoice with our VAT number on it
+T-022,App crashes every time I open the reports tab
+T-023,Everything is really slow since the last update
+T-024,"Billing address won't update, card keeps getting declined"

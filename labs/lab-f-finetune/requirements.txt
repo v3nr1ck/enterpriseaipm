@@ -1,0 +1,3 @@
+# Local scoring only. Training runs in the Unsloth Colab notebook
+# (see ../CURRENT.md) - nothing to install for that.
+# make_dataset.py and score_outputs.py use the standard library only.

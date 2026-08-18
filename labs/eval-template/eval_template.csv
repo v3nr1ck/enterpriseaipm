@@ -1,0 +1,11 @@
+id,category,input,ideal_output,notes,score_run_1,score_run_2,score_run_3
+1,recall,"What is the capital of France? One word.",Paris,"trivial - should survive anything",,,
+2,recall,"Who wrote Moby-Dick? Name only.",Herman Melville,,,,
+3,reasoning,"3 pens cost $4.50. Extras beyond a multiple of 3 cost $1.75 each. I buy 11. Total?",$17.00,"multi-step arithmetic - breaks first",,,
+4,reasoning,"Every Bloop is a Razzie. Some Razzies are Lazzies. Do some Bloops have to be Lazzies?",No,"invalid syllogism - models often say yes",,,
+5,format,"List 3 European capitals. JSON array of strings only. No prose or fences.","[""Paris"",""Rome"",""Madrid""]","constraint following",,,
+6,format,"Reply with the single word ACKNOWLEDGED and nothing else.",ACKNOWLEDGED,"tests instruction obedience under triviality",,,
+7,domain,"<replace with a real example from your product>",,"THIS is the row that matters",,,
+8,domain,"<replace with a real example from your product>",,,,,
+9,edge,"<a case you know is hard - the one that broke last time>",,,,,
+10,edge,"<an input a real user actually sent that went wrong>",,,,,
